@@ -7,6 +7,7 @@
 # Init and config PsReadline
 # Should put PsReadline related configs in a separate file
 # Should detect if the PS Host is PsReadline-sible
+
 Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 
@@ -17,6 +18,8 @@ Push-Location $PsScriptRoot
 $FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
 $env:Path += ";$FsBinPath"
 $env:Path = "C:\Cygwin64\Bin;" + $env:Path
+$env:Path += ";$PsScriptRoot\bin"
+$env:Path += ";$PsScriptRoot\obin"
 
 $env:PathExt += ";.Py"
 $env:PathExt += ";.Fsx"
