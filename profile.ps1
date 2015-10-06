@@ -11,10 +11,18 @@
 Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 
+$UserProfile = "$PsScriptRoot\profile.ps1"
+$Workspace = "d:\dev\workspace"
+if (-not $StartupScript)
+{
+  $StartupScript = $UserProfile
+}
+
 Push-Location $PsScriptRoot
 
-. .\Utility.ps1
+. ".\Utility.ps1"
 
+$FsHome = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0"
 $FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
 $env:Path += ";$FsBinPath"
 $env:Path = "C:\Cygwin64\Bin;" + $env:Path
@@ -31,33 +39,24 @@ $FscPath = "$FsBinPath\Fsc.exe"
 $CygwinBinPath = "C:\cygwin64\bin\"
 Set-Alias rlwrap "$CygwinBinPath\rlwrap.exe"
 
-$UserProfile = "$PsScriptRoot\profile.ps1"
-$Workspace = "d:\dev\workspace"
 
 function fsi {rlwrap fsi $args}
 
 Set-Alias l ls
-Set-Alias vi vim
+Set-Alias posh powershell
 
 # Show all files
 function lla {ls -Force}
 
 function .. { push-location .. }
 function ... { push-location ../.. }
-function Edit-Profile { gvim $UserProfile }
-function Edit-Vimrc { gvim $home\.vimrc.local }
-
 function e. {explorer .}
+
+function Edit-Vimrc { gvim $home\.vimrc.local }
 
 function which
 {
   Get-Command $args | Select Path
-}
-
-function Reload-Profile
-{
-  . $UserProfile
-  "Profile is reloaded"
 }
 
 function Get-LastDown
@@ -74,8 +73,11 @@ function Get-LastDown
     Write-Host ">>> Done"
 }
 
-$VimRuntime = "C:\Program Files (x86)\Vim\vim74"
+function code {
+  & "C:\Program Files (x86)\Microsoft VS Code\Code.exe" $args
+}
 
+$VimRuntime = "C:\Program Files (x86)\Vim\vim74"
 function GVim
 {
   param(
@@ -103,6 +105,44 @@ function GVim
 }
 
 
+function Test-Elevated {
+  $adminRole = [Security.Principal.WindowsBuiltInRole]"Administrator";
+  return ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole($adminRole)
+}
+
+
+function Get-HumanReadableSize {
+  $bytecount = $args[0]
+
+  switch -Regex ([math]::truncate([math]::log($bytecount,1024))) {
+    '^0' {"$bytecount Bytes"}
+    '^1' {"{0:n2} KB" -f ($bytecount / 1kb)}
+    '^2' {"{0:n2} MB" -f ($bytecount / 1mb)}
+    '^3' {"{0:n2} GB" -f ($bytecount / 1gb)}
+    '^4' {"{0:n2} TB" -f ($bytecount / 1tb)}
+    Default {"{0:n2} PB" -f ($bytecount / 1pb)}
+  }
+}
+
+function copypwd {
+  $pwd.Path | clip
+}
+
+function Reload-Profile
+{
+  . $UserProfile
+  "Profile is reloaded"
+}
+function Edit-Profile { gvim $UserProfile }
+function Reload-StartupScript
+{
+  $previousLocation = $pwd
+  . $startupScript
+  echo "Startup script reloaded"
+  cd $previousLocation
+}
+function Edit-StartupScript { gvim $StartupScript }
+
 Pop-Location
-Push-Location $Workspace
+
 
