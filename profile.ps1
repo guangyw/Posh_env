@@ -8,8 +8,11 @@
 # Should put PsReadline related configs in a separate file
 # Should detect if the PS Host is PsReadline-sible
 
-Import-Module PSReadLine
-Set-PSReadlineOption -EditMode Emacs
+if ($host.Name -eq 'ConsoleHost')
+{
+  Import-Module PSReadLine
+  Set-PSReadlineOption -EditMode Emacs
+}
 
 $UserProfile = "$PsScriptRoot\profile.ps1"
 $Workspace = "d:\dev\workspace"

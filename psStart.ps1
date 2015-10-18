@@ -5,6 +5,8 @@ $StartupScript = $PsCommandPath
 
 . ".\Profile.ps1"
 
+$repos = "d:\dev\repos"
+
 # ---- UI Related -----
 
 $Host.UI.RawUI.WindowTitle = "PS"

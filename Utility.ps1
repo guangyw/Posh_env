@@ -106,3 +106,39 @@ function ftype
     cmd /c ftype "$FileType=$Command" | ro $OutputPattern
   }
 }
+
+function Get-UpTime
+{
+  (Get-Date) - (Get-CimInstance Win32_operatingSystem).lastbootuptime
+}
+
+function Paket
+{
+  if (-not (Test-Path '.\.paket\'))
+  {
+    Write-Error "Not in a Paket land"
+    return
+  }
+
+  $paketExe = '.\.paket\paket.exe'
+  $paketBootstrapper = '.\.paket\paket.bootstrapper.exe'
+  if (-not (Test-Path $paketExe))
+  {
+    # Paket is not bootstrapped
+    if (-not (Test-Path $paketBootstrapper))
+    {
+      Write-Error "Paket bootstrapper not found"
+      return
+    }
+
+    & $paketBootstrapper
+    if (-not (Test-Path $paketExe))
+    {
+      Write-Error "Paket bootstrapping failed"
+      return
+    }
+  }
+
+  # finally run paket
+  & $paketExe $args
+}
