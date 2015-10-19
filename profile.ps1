@@ -42,8 +42,7 @@ $FscPath = "$FsBinPath\Fsc.exe"
 $CygwinBinPath = "C:\cygwin64\bin\"
 Set-Alias rlwrap "$CygwinBinPath\rlwrap.exe"
 
-
-function fsi {rlwrap fsi $args}
+#function fsi {rlwrap fsi $args}
 
 Set-Alias l ls
 Set-Alias posh powershell

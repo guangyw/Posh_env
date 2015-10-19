@@ -5,7 +5,8 @@ Import-CliXml e:\Office-EnvVar.xml | % {set-item -path env:$($_.Key) -value $_.V
 
 . ".\Profile.ps1"
 
-$env:Path += ";E:\UserDepot\hew\Scripts"
+$UserDepot = "E:\UserDepot\hew"
+$env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
 
 $StartupScript = $PsCommandPath
 
@@ -31,7 +32,8 @@ function vsomex {devenv "$env:SrcRoot\omexservices\omexservices.sln"}
 function vsretailer {devenv "$env:SrcRoot\omexservices\omexretailer.sln"}
 function vsshared {devenv "$env:SrcRoot\omexshared\omexshared.sln"}
 function vstest {devenv "$env:SrcRoot\omexservices\omexservicestest.sln"}
-function vsrec {devenv "$env:SrcRoot\omexservices\reconciler.sln"}
+function vstelemetry {devenv "$env:SrcRoot\omexservices\telemetry\OmexTelemetry.sln"}
+function vsreconciler {devenv "$env:SrcRoot\omexservices\reconciler.sln"}
 
 function enter-vdev {
   Enter-PSSession -ComputerName hew-vdev -Authentication CredSSP -Credential (Get-Credential)

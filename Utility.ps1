@@ -107,6 +107,7 @@ function ftype
   }
 }
 
+
 function Get-UpTime
 {
   (Get-Date) - (Get-CimInstance Win32_operatingSystem).lastbootuptime
@@ -142,3 +143,13 @@ function Paket
   # finally run paket
   & $paketExe $args
 }
+
+function Set-Title
+{
+  param(
+    [string]$title
+  )
+  
+  $Host.UI.RawUI.WindowTitle = $title
+}
+
