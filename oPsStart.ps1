@@ -65,7 +65,8 @@ function Build-PatchDev {
 
 # ------------------------------------------
 $SdClientName = "hew-dev"
-$Host.UI.RawUI.WindowTitle = "PS: $SdClientName"
+Set-Title "PS: $SdClientName"
+
 newline "Welcome to PsEnlistment ($SdClientName)"
 omotd -tip
 newline

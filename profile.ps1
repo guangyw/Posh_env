@@ -32,6 +32,11 @@ $env:Path = "C:\Cygwin64\Bin;" + $env:Path
 $env:Path += ";$PsScriptRoot\bin"
 $env:Path += ";$PsScriptRoot\obin"
 
+$AtomPath = "C:\Users\hew\AppData\Local\atom\bin"
+if (Test-Path $AtomPath) {
+    $env:Path += ";$AtomPath"
+}
+
 $env:PathExt += ";.Py"
 $env:PathExt += ";.Fsx"
 $env:PathExt += ";.FsScript"
@@ -130,12 +135,25 @@ function copypwd {
   $pwd.Path | clip
 }
 
+function copypath {
+    param(
+    [string]$path
+    )
+    if (-not $path) { $path = '.' }
+    $absPath = (Get-Item $path).FullName
+    echo "Copy $absPath"
+    $absPath | clip
+}
+
 function Reload-Profile
 {
   . $UserProfile
-  "Profile is reloaded"
+  
+  echo "Profile is reloaded"
 }
+
 function Edit-Profile { gvim $UserProfile }
+
 function Reload-StartupScript
 {
   $previousLocation = $pwd
@@ -143,6 +161,7 @@ function Reload-StartupScript
   echo "Startup script reloaded"
   cd $previousLocation
 }
+
 function Edit-StartupScript { gvim $StartupScript }
 
 Pop-Location
