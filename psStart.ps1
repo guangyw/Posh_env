@@ -9,8 +9,8 @@ $repos = "d:\dev\repos"
 
 # ---- UI Related -----
 
-$Host.UI.RawUI.WindowTitle = "PS"
-newline "Welcome to Posh-Env"
+Set-Title "PS"
+Write-Host "Welcome to Posh-Env`n"
 
 Pop-Location
 Push-Location $Workspace
