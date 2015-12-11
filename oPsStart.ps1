@@ -1,7 +1,8 @@
 # Startup script for PsEnlistment
 
 Push-Location $PsScriptRoot
-Import-CliXml e:\Office-EnvVar.xml | % {set-item -path env:$($_.Key) -value $_.Value };
+
+.\bin\envutil load e:\Office-EnvVar.xml
 
 . ".\Profile.ps1"
 

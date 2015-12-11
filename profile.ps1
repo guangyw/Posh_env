@@ -1,4 +1,4 @@
-# PowerShell Profile for Heng Wang
+# PowerShell Profile of Odin (hew)
 
 # This Profile will only affect the Windows PowerShell
 # Excluding PowerShell Implementation by Others
