@@ -27,8 +27,9 @@ Push-Location $PsScriptRoot
 
 $FsHome = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0"
 $FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
+$CygwinBinPath = "D:\cygwin64\bin\"
 $env:Path += ";$FsBinPath"
-$env:Path = "C:\Cygwin64\Bin;" + $env:Path
+#$env:Path = "$CygwinBinPath;" + $env:Path
 $env:Path += ";$PsScriptRoot\bin"
 $env:Path += ";$PsScriptRoot\obin"
 
@@ -44,8 +45,8 @@ $env:PathExt += ";.FsScript"
 $FsiPath = "$FsBinPath\Fsi.exe"
 $FscPath = "$FsBinPath\Fsc.exe"
 
-$CygwinBinPath = "C:\cygwin64\bin\"
-Set-Alias rlwrap "$CygwinBinPath\rlwrap.exe"
+$MiniCygBin = "D:\Dev\Cygbin"
+Set-Alias rlwrap "$MiniCygBin\rlwrap.exe"
 
 #function fsi {rlwrap fsi $args}
 
