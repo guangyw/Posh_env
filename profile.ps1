@@ -1,4 +1,4 @@
-# PowerShell Profile for Heng Wang
+# PowerShell Profile of Odin (hew)
 
 # This Profile will only affect the Windows PowerShell
 # Excluding PowerShell Implementation by Others
@@ -132,10 +132,6 @@ function Get-HumanReadableSize {
   }
 }
 
-function copypwd {
-  $pwd.Path | clip
-}
-
 function copypath {
     param(
     [string]$path
@@ -149,7 +145,7 @@ function copypath {
 function Reload-Profile
 {
   . $UserProfile
-  
+
   echo "Profile is reloaded"
 }
 
@@ -166,5 +162,3 @@ function Reload-StartupScript
 function Edit-StartupScript { gvim $StartupScript }
 
 Pop-Location
-
-
