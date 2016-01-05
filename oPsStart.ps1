@@ -35,7 +35,7 @@ function vstest {devenv "$env:SrcRoot\omexservices\omexservicestest.sln"}
 function vstelemetry {devenv "$env:SrcRoot\omexservices\telemetry\OmexTelemetry.sln"}
 function vsreconciler {devenv "$env:SrcRoot\omexservices\reconciler.sln"}
 
-function enter-vdev {
+function Enter-Vdev {
   Enter-PSSession -ComputerName hew-vdev -Authentication CredSSP -Credential (Get-Credential)
 }
 

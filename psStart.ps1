@@ -5,12 +5,15 @@ $StartupScript = $PsCommandPath
 
 . ".\Profile.ps1"
 
-$repos = "d:\dev\repos"
+$Repos = "d:\dev\repos"
 
 # ---- UI Related -----
 
-Set-Title "PS"
-Write-Host "Welcome to Posh-Env`n"
-
 Pop-Location
-Push-Location $Workspace
+
+# Init only if the start script is run as the first command
+if ($MyInvocation.HistoryId -eq 1) {
+  Set-Title "PS"
+  Write-Host "Welcome to Posh-Env`n"
+  Push-Location $Workspace
+}

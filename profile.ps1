@@ -14,8 +14,17 @@ if ($host.Name -eq 'ConsoleHost')
   Set-PSReadlineOption -EditMode Emacs
 }
 
-$UserProfile = "$PsScriptRoot\profile.ps1"
-$Workspace = "d:\dev\workspace"
+$UserProfile = "$PsScriptRoot\Profile.ps1"
+
+if ((-not $Workspace) -or -not (Test-Path $Workspace)) {
+  foreach ($ws in "d:\dev\workspace", "c:\dev\workspace") {
+    if (Test-Path $ws) {
+      $Workspace = $ws
+      break
+    }
+  }
+}
+
 if (-not $StartupScript)
 {
   $StartupScript = $UserProfile
@@ -131,11 +140,11 @@ function Get-HumanReadableSize {
   }
 }
 
-function copypwd {
+function CopyPwd {
   $pwd.Path | clip
 }
 
-function copypath {
+function CopyPath {
     param(
     [string]$path
     )
@@ -148,7 +157,7 @@ function copypath {
 function Reload-Profile
 {
   . $UserProfile
-  
+
   echo "Profile is reloaded"
 }
 
