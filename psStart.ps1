@@ -4,6 +4,7 @@ Push-Location $PsScriptRoot
 $StartupScript = $PsCommandPath
 
 . ".\Profile.ps1"
+. ".\RuntimeHelper.ps1" # Experimental
 
 $Repos = "d:\dev\repos"
 

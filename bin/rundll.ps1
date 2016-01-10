@@ -10,7 +10,8 @@ param (
 	[String]$MethodName,
 
 	[Parameter(Mandatory=$false, Position=2)]
-	[Object[]]$ProgArgs
+  [Alias("Args", "Params")]
+	[Object[]]$ProgramArgs
 )
 
 if (-not (Test-Path $DllPath)) {
@@ -94,6 +95,6 @@ function Invoke-Method($methodInfo, $_args)
 }
 
 $method = Select-Method $dll $className $methodName
-Invoke-Method $method $args
+Invoke-Method $method $ProgramArgs
 
 # Exit-Gracefully

@@ -149,10 +149,9 @@ function Set-Title
   param(
     [string]$title
   )
-  
+
   $Host.UI.RawUI.WindowTitle = $title
-  
+
   # Set the env var 'title', respected by otools
   $Env:Title = $title
 }
-
