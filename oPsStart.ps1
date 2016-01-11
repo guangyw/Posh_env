@@ -4,6 +4,8 @@ Push-Location $PsScriptRoot
 
 .\bin\envutil load e:\Office-EnvVar.xml
 
+$env:JAVA_HOME = "E:\App\jdk1.8.0_65"
+
 . ".\Profile.ps1"
 
 $UserDepot = "E:\UserDepot\hew"
