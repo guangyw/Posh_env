@@ -2,7 +2,9 @@
 
 Push-Location $PsScriptRoot
 
-.\bin\envutil load e:\Office-EnvVar.xml
+.\bin\envutil load e:\Office-Env.xml
+
+$env:JAVA_HOME = "E:\App\jdk1.8.0_65"
 
 . ".\Profile.ps1"
 
