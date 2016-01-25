@@ -1,5 +1,9 @@
 ﻿# Get last download file (from download location) to here
 
+# TODO: make a more generic GetLastFile command, and make GetLastDown basically
+# a function that calls the GetLastFile
+# There should be other cases where GetLastFile can be made useful.
+
 $downloadLocations = Join-Path $env:USERPROFILE "Downloads"
 
 $lastDownloadedFile = $downloadLocations `

@@ -127,7 +127,6 @@ function Test-Elevated {
   return ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole($adminRole)
 }
 
-
 function Get-HumanReadableSize {
   $bytecount = $args[0]
 

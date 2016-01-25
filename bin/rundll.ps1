@@ -20,8 +20,12 @@ if (-not (Test-Path $DllPath)) {
 
 $DllPath = (ls $DllPath).FullName
 
+# TODO: list out all possible executable functions within that DLL
+
 # TODO: use a separate AppDomain
 # But why are the issues in reusing the current AppDomain
+
+# TODO: How to figure out all the dependencies, if DLL is not a standalone one
 
 #$AssemblyName = [Reflection.AssemblyName]::GetAssemblyName($DllPath)
 <#

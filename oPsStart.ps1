@@ -2,6 +2,7 @@
 
 Push-Location $PsScriptRoot
 
+# Load the environment from xml env definition
 .\bin\envutil load e:\Office-Env.xml
 
 $env:JAVA_HOME = "E:\App\jdk1.8.0_65"
