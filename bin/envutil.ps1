@@ -1,3 +1,6 @@
+# Utility to save and load environment variables in current shell execution context
+
+# TODO: When Save results in override, display the diff of current file vs old file
 
 [CmdletBinding()]
 param (
@@ -39,7 +42,7 @@ if ($Action -eq "Save") {
   Write-Output "Loading Environment from $EnvironmentFilePath"
 
   $envdata = Import-CliXml $EnvironmentFilePath
-  $envdata |? {$_.Key -ne "path"} |% {set-item -path "env:$($_.Key)" -value $_.Value };
+  $envdata |? {$_.Key -ne "path"} |% {set-item -path "env:$($_.Key)" -value $_.Value }
 
   $oldPath = $env:Path
   $newPath = $envdata |? {$_.Key -eq "path"}
