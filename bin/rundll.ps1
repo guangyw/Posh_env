@@ -25,6 +25,9 @@ $DllPath = (ls $DllPath).FullName
 
 # TODO: use a separate AppDomain
 # But why are the issues in reusing the current AppDomain
+# TODO: run in a different process
+# because e.g. if there is an infinite loop with the DLL, you can kill it
+# without kill the hosting shell
 
 # TODO: How to figure out all the dependencies, if DLL is not a standalone one
 
@@ -37,7 +40,8 @@ $AppDomain = [AppDomain]::CreateDomain("PoshEnv.RunDll", [AppDomain]::CurrentDom
 $AppDomain = [AppDomain]::CurrentDomain
 Write-Verbose "AppDomain BaseDirectory $($AppDomain.BaseDirectory)"
 $AssemblyBytes = [IO.File]::ReadAllBytes($DllPath)
-$dll = $AppDomain.Load($AssemblyBytes, [IO.File]::ReadAllBytes((ls ".\Main.pdb").FullName))
+#$SymbolsBytes = [IO.File]::ReadAllBytes((ls ".\Main.pdb").FullName)
+$dll = $AppDomain.Load($AssemblyBytes)
 
 if (-not $MethodName) {
   # use Main as the default entry point name
