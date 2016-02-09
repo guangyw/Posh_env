@@ -8,9 +8,14 @@ $StartupScript = $PsCommandPath
 
 $Repos = "d:\dev\repos"
 
-# ---- UI Related -----
-
 Pop-Location
+
+$EnvFile = Join-Path $Workspace "PsEnv.xml"
+if (Test-Path $EnvFile) {
+  EnvUtil Load $EnvFile
+}
+
+# ---- UI Related -----
 
 # Init only if the start script is run as the first command
 if ($MyInvocation.HistoryId -eq 1) {
