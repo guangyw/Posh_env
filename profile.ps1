@@ -51,6 +51,8 @@ $env:PathExt += ";.Py"
 $env:PathExt += ";.Fsx"
 $env:PathExt += ";.FsScript"
 
+$env:Home = (Get-Item "~").FullName
+
 $FsiPath = "$FsBinPath\Fsi.exe"
 $FscPath = "$FsBinPath\Fsc.exe"
 
