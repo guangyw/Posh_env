@@ -1,5 +1,9 @@
 # Startup script for PsEnlistment
 
+# Import Z-Location
+Import-Module ZLocation
+Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
+
 Push-Location $PsScriptRoot
 
 # Load the environment from xml env definition
