@@ -5,7 +5,7 @@
 [CmdletBinding()]
 param (
 	[Parameter(Mandatory=$true, Position=0)]
-	[ValidateSet("Load", "Save")]
+	[ValidateSet("Load", "Save", "List")]
 	[String]$Action,
 
 	[Parameter(Mandatory=$true, Position=1)]
@@ -13,18 +13,7 @@ param (
 	[String]$EnvironmentFilePath
 )
 
-function Merge-Path($oldpath, $newpath)
-{
-  $dict = New-Object System.Collections.Generic.HashSet[string]
-  $oldpath -split ";" |% {$dict.Add($_) | Out-Null }
-  $newpath -split ";" |% {$dict.Add($_) | Out-Null }
-  $mergedPath = $dict -join ";"
-
-  Write-Verbose "Merged Path:"
-  Write-Verbose $mergedPath
-
-  return $mergedPath
-}
+. "$PSScriptRoot\..\lib\FileSys.ps1"
 
 Write-Verbose "Environment file: $EnvironmentFilePath"
 
@@ -42,14 +31,20 @@ if ($Action -eq "Save") {
   Write-Output "Loading Environment from $EnvironmentFilePath"
 
   $envdata = Import-CliXml $EnvironmentFilePath
-  $envdata |? {$_.Key -ne "path"} |% {set-item -path "env:$($_.Key)" -value $_.Value }
+  $envdata `
+  |? {$_.Key -ne "path"} `
+  |% {set-item -path "env:$($_.Key)" -value $_.Value }
 
-  $oldPath = $env:Path
-  $newPath = $envdata |? {$_.Key -eq "path"}
-  $newPath = $newPath.Value
-  $mergedPath = Merge-Path($oldPath, $newPath)
+  $OldPath = $env:Path
+  $IncPath = $envdata |? {$_.Key -eq "path"}
+  $IncPath = $IncPath.Value
+  $mergedPath = Merge-Path $OldPath $IncPath
 
   Set-Item -Path "env:path" -Value $mergedPath
+
+} elseif ($Action -eq "List") {
+  $envdata = Import-CliXml $EnvironmentFilePath
+  return $envdata
 
 } else {
 
