@@ -4,18 +4,9 @@
 # Excluding PowerShell Implementation by Others
 # Should be fine to put everything here
 
-# Init and config PsReadline
-# Should put PsReadline related configs in a separate file
-# Should detect if the PS Host is PsReadline-sible
-
-if ($host.Name -eq 'ConsoleHost')
-{
-  Import-Module PSReadLine
-  Set-PSReadlineOption -EditMode Emacs
-}
-
 $UserProfile = "$PsScriptRoot\Profile.ps1"
 
+# TODO: this should be deprecated in favor of Autojump / Z-Location
 if ((-not $Workspace) -or -not (Test-Path $Workspace)) {
   foreach ($ws in "d:\dev\workspace", "c:\dev\workspace") {
     if (Test-Path $ws) {
@@ -32,7 +23,7 @@ if (-not $StartupScript)
 
 Push-Location $PsScriptRoot
 
-. ".\Utility.ps1"
+. ".\lib\Utility.ps1"
 
 $FsHome = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0"
 $FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
@@ -174,5 +165,17 @@ function Reload-StartupScript
 }
 
 function Edit-StartupScript { gvim $StartupScript }
+
+
+# TODO: Move module configuration to a separate file
+# Init and config PsReadline
+# Should put PsReadline related configs in a separate file
+# Should detect if the PS Host is PsReadline-sible
+
+if ($host.Name -eq 'ConsoleHost')
+{
+  Import-Module PSReadLine
+  Set-PSReadlineOption -EditMode Emacs
+}
 
 Pop-Location

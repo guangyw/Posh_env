@@ -1,20 +1,35 @@
 # Startup script for PsEnlistment
 
+param (
+  [string]$EnvFilePath = "e:\Office-Env.xml"
+)
+
 # Import Z-Location
 Import-Module ZLocation
 Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
 
 Push-Location $PsScriptRoot
 
-# Load the environment from xml env definition
-.\bin\envutil load e:\Office-Env.xml
+<#
+TODO: the order / dependencies are getting harder to figure out
+ #>
 
+$Workspace = "e:\Workspace"
 $env:JAVA_HOME = "E:\App\jdk1.8.0_65"
 
 . ".\Profile.ps1"
+. ".\lib\FileSys.ps1"
 
 $UserDepot = "E:\UserDepot\hew"
 $env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
+
+# Load the environment from xml env definition
+.\bin\envutil load $EnvFilePath
+
+if ($env:LIB -eq "--must-override-in-makefile--") {
+  # I think this is a bad decision, developers are not monkeys
+  $env:LIB = ''
+}
 
 $StartupScript = $PsCommandPath
 
@@ -72,11 +87,13 @@ function Build-PatchDev {
 
 
 # ------------------------------------------
-$SdClientName = "hew-dev"
+Push-Location $env:SrcRoot;
+
+$sdinfo = sdinfo
+$SdClientName = $sdinfo."Client name"
 Set-Title "PS: $SdClientName"
+# TODO: Consider output synced checkpoint number
 
 newline "Welcome to PsEnlistment ($SdClientName)"
 omotd -tip
 newline
-
-Push-Location $env:SrcRoot;
