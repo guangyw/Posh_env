@@ -62,12 +62,6 @@ function Enter-Vdev {
   Enter-PSSession -ComputerName hew-vdev -Authentication CredSSP -Credential (Get-Credential)
 }
 
-function Run-UT {
-  Push-Location E:\office\dev\omexservices\services\diagnostics.unittests
-  ut $args -t MS.Internal.Motif.Office.Web.OfficeMarketplace.Diagnostics.Services.Reconciler.ComponentTests.WrongPuidFixAcceptanceTests
-  Pop-Location
-}
-
 function git {
   & "C:\Program Files (x86)\Git\bin\git.exe" $args
 }

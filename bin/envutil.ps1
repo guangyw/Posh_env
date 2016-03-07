@@ -1,6 +1,8 @@
 # Utility to save and load environment variables in current shell execution context
 
 # TODO: When Save results in override, display the diff of current file vs old file
+# TODO: inspect invalid pieces in path, and trim them
+# TODO: add more help information here
 
 [CmdletBinding()]
 param (

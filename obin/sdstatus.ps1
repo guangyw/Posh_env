@@ -1,5 +1,7 @@
 # Get list opened files grouped by changelists in current enlistments
-# Author: Odin Wang (hew)
+# Contact: Odin Wang (hew)
+
+# TODO: implement custom formating
 
 function newList {New-Object System.Collections.ArrayList}
 
