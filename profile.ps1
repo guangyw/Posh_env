@@ -38,6 +38,14 @@ if (Test-Path $AtomPath) {
     $env:Path += ";$AtomPath"
 }
 
+if (Test-Path "D:\apps\emacs\bin") {
+  $env:Path += ";D:\apps\emacs\bin"
+}
+
+if (Test-Path "D:\Apps\Racket") {
+  $env:Path += ";D:\Apps\Racket"
+}
+
 $env:PathExt += ";.Py"
 $env:PathExt += ";.Fsx"
 $env:PathExt += ";.FsScript"
