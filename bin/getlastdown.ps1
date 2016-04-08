@@ -4,6 +4,8 @@
 # a function that calls the GetLastFile
 # There should be other cases where GetLastFile can be made useful.
 
+# TODO: Get last down should return a handle to the moved item
+
 $downloadLocations = Join-Path $env:USERPROFILE "Downloads"
 
 $lastDownloadedFile = $downloadLocations `
