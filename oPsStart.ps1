@@ -4,9 +4,11 @@ param (
   [string]$EnvFilePath = "e:\Office-Env.xml"
 )
 
-# Import Z-Location
-Import-Module ZLocation
-Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
+if (Get-Module ZLocation) {
+    # Import Z-Location
+    Import-Module ZLocation
+    Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
+}
 
 Push-Location $PsScriptRoot
 
