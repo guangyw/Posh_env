@@ -113,6 +113,7 @@ function Get-UpTime
   (Get-Date) - (Get-CimInstance Win32_operatingSystem).lastbootuptime
 }
 
+
 function Paket
 {
   if (-not (Test-Path '.\.paket\'))
@@ -144,6 +145,7 @@ function Paket
   & $paketExe $args
 }
 
+
 function Set-Title
 {
   param(
@@ -154,4 +156,26 @@ function Set-Title
 
   # Set the env var 'title', respected by otools
   $Env:Title = $title
+}
+
+
+function Format-Size
+{
+  param(
+    [Parameter(Mandatory=$true)]
+    [Decimal]$NumBytes
+  )
+
+  if ($NumBytes -ge 1024 * 1024)
+  {
+    return "{0:f} MB" -f ($NumBytes / (1024 * 1024))
+  }
+  elseif ($NumBytes -ge 1024)
+  {
+    return "{0:f} KB" -f ($NumBytes / (1024))
+  }
+  else
+  {
+    return "{0:f} B" -f $NumBytes
+  }
 }

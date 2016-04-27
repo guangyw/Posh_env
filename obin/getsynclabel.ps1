@@ -17,8 +17,13 @@ function Get-BuildVer($BuildVerFilePath) {
   return $d['rmj'], $d['rmm'], $d['rup'], $d['rpr'] -join '.'
 }
 
+$SyncLabel = cat $synclabelfilepath;
+$SyncLabel -match "[\w_]*?(\d+_\d+_\d+_\d+)"
+$BuildVer = $matches[1] -replace '_', '.'
+
 return New-Object PSObject -Property `
    @{
-     SyncedLabel=(cat $synclabelfilepath);
-     BaseBuildVer=Get-BuildVer($LabVersionFilePath);
+     BuildVer = $BuildVer;
+     BaseBuildVer = Get-BuildVer $LabVersionFilePath;
+     SyncedLabel = $SyncLabel;
    }
