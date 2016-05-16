@@ -1,7 +1,6 @@
 function Select-First
 {
   [CmdletBinding()]
-
   param(
   [Parameter(Mandatory=$false, Position=1)]
   [int]$Count = 1,

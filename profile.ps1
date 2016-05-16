@@ -8,7 +8,7 @@ $UserProfile = "$PsScriptRoot\Profile.ps1"
 
 # TODO: this should be deprecated in favor of Autojump / Z-Location
 if ((-not $Workspace) -or -not (Test-Path $Workspace)) {
-  foreach ($ws in "d:\dev\workspace", "c:\dev\workspace") {
+  foreach ($ws in "d:\dev\workspace", "c:\dev\workspace", "e:\Workspace") {
     if (Test-Path $ws) {
       $Workspace = $ws
       break
