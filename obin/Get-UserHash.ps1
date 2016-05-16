@@ -1,8 +1,11 @@
+<#
+This is OMEX implementation specific hashing of user identities
+#>
+
 ﻿param(
     [Parameter(Mandatory=$true)]
     [string]$puid
 )
-
 
 $HashProvider = New-Object Security.Cryptography.SHA256CryptoServiceProvider;
 

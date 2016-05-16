@@ -18,12 +18,12 @@ function Get-BuildVer($BuildVerFilePath) {
 }
 
 $SyncLabel = cat $synclabelfilepath;
-$SyncLabel -match "[\w_]*?(\d+_\d+_\d+_\d+)"
-$BuildVer = $matches[1] -replace '_', '.'
+if ($SyncLabel -match "[\w_]*?(\d+_\d+_\d+_\d+)") {
+  $BuildVer = $matches[1] -replace '_', '.'
+}
 
-return New-Object PSObject -Property `
-   @{
+return [PSCustomObject] @{
      BuildVer = $BuildVer;
      BaseBuildVer = Get-BuildVer $LabVersionFilePath;
      SyncedLabel = $SyncLabel;
-   }
+}

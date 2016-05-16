@@ -6,6 +6,8 @@ param (
 
 Begin {
   . "$PsScriptRoot\..\lib\Utility.ps1"
+
+  # TODO: this approach doesn't work for $env:LocalAppData and some other folders
   $FSO = New-Object -Com Scripting.FileSystemObject
 }
 
@@ -16,16 +18,13 @@ Process {
   $FullName = $Folder.FullName
   $DirStat = $FSO.GetFolder($FullName)
 
-  $Result = New-Object PSObject -Property `
-     @{
-       Name = $Folder.Name;
-       FullName = $Folder.FullName;
-       Folder = $Folder;
-       Size = $DirStat.Size;
-       ReadableSize = Format-Size $DirStat.Size;
-     }
-
-  return $Result
+  [PSCustomObject] @{
+     Name = $Folder.Name;
+     FullName = $Folder.FullName;
+     Folder = $Folder;
+     Size = $DirStat.Size;
+     ReadableSize = Format-Size $DirStat.Size;
+   }
 }
 
 End {
