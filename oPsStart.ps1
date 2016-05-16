@@ -22,6 +22,8 @@ $env:JAVA_HOME = "E:\App\jdk1.8.0_65"
 . ".\Profile.ps1"
 . ".\lib\FileSys.ps1"
 
+. ".\OlsDev.ps1"
+
 $UserDepot = "E:\UserDepot\hew"
 $env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
 
