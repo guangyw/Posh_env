@@ -1,7 +1,10 @@
 
 function ols {
-  $ols = "$env:SrcRoot\ols\ols.bat"
-  & "$ols $_"
+  if (-not (Test-Path "$env:SrcRoot\ols\ols.bat")) {
+    Write-Warning "Not in an OLS enlistment"
+    return
+  }
+  & $env:SrcRoot\ols\ols.bat $args
 }
 
 function vsols {

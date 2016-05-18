@@ -5,7 +5,6 @@ $StartupScript = $PsCommandPath
 
 . ".\Profile.ps1"
 . ".\RuntimeHelper.ps1" # Experimental
-. ".\OlsDev.ps1"
 
 $Repos = "d:\dev\repos"
 

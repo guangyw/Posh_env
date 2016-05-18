@@ -21,6 +21,7 @@ $env:JAVA_HOME = "E:\App\jdk1.8.0_65"
 
 . ".\Profile.ps1"
 . ".\lib\FileSys.ps1"
+. ".\lib\SdCommon.ps1"
 
 . ".\OlsDev.ps1"
 
@@ -30,9 +31,22 @@ $env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
 # Load the environment from xml env definition
 .\bin\envutil load $EnvFilePath
 
+$SdToolsOptions = @{
+    SDEDITOR = "$env:otools\bin\resolver.exe";
+    SDFDIFF = "$env:otools\bin\sdvdiff.exe -LO";
+    SDPDIFF = "$env:otools\bin\sdvdiff.exe";
+    SDPWDIFF = "$env:otools\bin\sdvdiff.exe";
+    SDVCDIFF = "$env:otools\bin\sdvdiff.exe -LD";
+    SDVDIFF = "$env:otools\bin\sdvdiff.exe"
+}
+
+foreach ($kv in $SdToolsOptions.GetEnumerator()) {
+  Set-Item -Path "env:$($kv.Key)" -Value $kv.Value
+}
+
 if ($env:LIB -eq "--must-override-in-makefile--") {
   # I think this is a bad decision, developers are not monkeys
-  $env:LIB = ''
+  $env:LIB = ""
 }
 
 $StartupScript = $PsCommandPath
