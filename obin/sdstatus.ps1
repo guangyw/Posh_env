@@ -3,7 +3,9 @@
 
 # TODO: implement custom formating
 
-function newList {New-Object System.Collections.ArrayList}
+. $PsScriptRoot\..\lib\SdCommon.ps1
+
+function New-List { New-Object System.Collections.ArrayList }
 
 function stripPathOutput {
     # TODO: strip according to $pwd
@@ -15,13 +17,19 @@ function stripPathOutput {
     return $path
 }
 
-$changes = @{default=@{
-    Files=newList;
-    ChangeNo="default";
-    Timestamp=Get-Date "0001/01/01 00:00:00"
-  }}
+$changes = @{default = @{
+    Files = New-List;
+    ChangeNo = "default";
+    Timestamp = Get-Date "0001/01/01 00:00:00"
+}}
 
-$changesOutput = sd changes -l -c hew-dev -s pending
+$SdConfig = Get-SdConfig
+if (-not $SdConfig) {
+  return
+}
+$SdClient = $SdConfig.SdClient
+
+$changesOutput = sd changes -l -c $sdClient -s pending
 # This command gives no output if there is no change list
 if ($changesOutput) {
   $regexPtn = 'Change (\d+) on (\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) by [\w\\@-]+ \*pending\*\s+(.+?)\s+?(?=Change \d+ on \d{4}|$)'
@@ -32,7 +40,7 @@ if ($changesOutput) {
       ChangeNo=$_.Groups[1].Value;
       Timestamp=Get-Date $_.Groups[2].Value;
       Description=$_.Groups[3].Value;
-      Files=newList;
+      Files=New-List;
     }} `
     |% { $changes.Add($_.ChangeNo, $_) }
 }
