@@ -69,12 +69,16 @@ function osubmit
   }
 }
 
-function vsomex {devenv "$env:SrcRoot\omexservices\omexservices.sln"}
-function vsretailer {devenv "$env:SrcRoot\omexservices\omexretailer.sln"}
-function vsshared {devenv "$env:SrcRoot\omexshared\omexshared.sln"}
-function vstest {devenv "$env:SrcRoot\omexservices\omexservicestest.sln"}
-function vstelemetry {devenv "$env:SrcRoot\omexservices\telemetry\OmexTelemetry.sln"}
-function vsreconciler {devenv "$env:SrcRoot\omexservices\reconciler.sln"}
+function devosi {
+  & "$env:otools\bin\osi\devosi.bat" $args
+}
+
+function vsomex { devenv "$env:SrcRoot\omexservices\omexservices.sln" }
+function vsretailer { devenv "$env:SrcRoot\omexservices\omexretailer.sln" }
+function vsshared { devenv "$env:SrcRoot\omexshared\omexshared.sln" }
+function vstest { devenv "$env:SrcRoot\omexservices\omexservicestest.sln" }
+function vstelemetry { devenv "$env:SrcRoot\omexservices\telemetry\OmexTelemetry.sln" }
+function vsreconciler { devenv "$env:SrcRoot\omexservices\reconciler.sln" }
 
 function Enter-Vdev {
   Enter-PSSession -ComputerName hew-vdev -Authentication CredSSP -Credential (Get-Credential)
@@ -84,7 +88,7 @@ function git {
   & "C:\Program Files (x86)\Git\bin\git.exe" $args
 }
 
-function hexpuid {
+function HexPuid {
   $hex = "{0:X}" -f [UInt64]$args[0]
   Write-Output "Hex Puid: $hex"
   $hex | clip
@@ -96,7 +100,6 @@ function src {push-location $env:SrcRoot}
 function Build-PatchDev {
   ohome build debug patchdev*
 }
-
 
 # ------------------------------------------
 Push-Location $env:SrcRoot;
