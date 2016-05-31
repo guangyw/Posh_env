@@ -74,7 +74,22 @@ function Edit-Vimrc { gvim $home\.vimrc.local }
 
 function which
 {
-  Get-Command $args | Select Path
+  $cmd = Get-Command $args[0] -ErrorAction Stop
+  $def = $cmd | Select -Expand Definition
+  $def.Trim()
+
+  <#
+  if ($cmd.CommandType -eq [Management.Automation.CommandTypes]::Application)
+  {}
+  else if ($cmd.CommandType -eq [Management.Automation.CommandTypes]::Function)
+  {
+    cat "function:Path"
+  }
+  else
+  {
+    Write-Error "Unhandled CommandType $($cmd.CommandType)"
+  }
+  #>
 }
 
 function Get-LastDown

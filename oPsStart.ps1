@@ -84,10 +84,6 @@ function Enter-Vdev {
   Enter-PSSession -ComputerName hew-vdev -Authentication CredSSP -Credential (Get-Credential)
 }
 
-function git {
-  & "C:\Program Files (x86)\Git\bin\git.exe" $args
-}
-
 function HexPuid {
   $hex = "{0:X}" -f [UInt64]$args[0]
   Write-Output "Hex Puid: $hex"
