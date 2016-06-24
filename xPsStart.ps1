@@ -20,7 +20,7 @@ if (Get-Module Posh-Git -ListAvailable) {
       #Write-Host($pwd.ProviderPath) -nonewline
       Write-Host ">" -NoNewline
       Write-VcsStatus
-      Write-Host "`n$pwd" -NoNewline
+      Write-Host "`nPS $pwd" -NoNewline
 
       $global:LASTEXITCODE = $realLASTEXITCODE
 
@@ -81,4 +81,5 @@ if ($env:EnlistmentName) {
   Set-Title "$env:EnlistmentName"
 }
 
-Write-Host "CoreXT env $env:EnlistmentName"
+Write-Host "Welcome to CoreXT environment $env:EnlistmentName"
+Write-Host ""
