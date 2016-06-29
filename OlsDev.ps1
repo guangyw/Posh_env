@@ -15,3 +15,12 @@ function vsols {
   }
   devenv $slnPath
 }
+
+function vsOsi {
+  $slnPath = "$env:SrcRoot\osisvcdef\ols\src\ServiceDefinitions\ols\Ols.sln"
+  if (-not (Test-Path $slnPath)) {
+    Write-Warning "Not in an OLS enlistment"
+    return
+  }
+  devenv $slnPath
+}
