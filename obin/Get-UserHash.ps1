@@ -2,7 +2,7 @@
 This is OMEX implementation specific hashing of user identities
 #>
 
-﻿param(
+param(
     [Parameter(Mandatory=$true)]
     [string]$puid
 )

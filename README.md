@@ -4,9 +4,14 @@ PowerShell configurations and scripts for both work and play.
 
 ## TODOs
 
+- Allow the configuration of your fav editor
 - Environment switch - e.g. Visual Studio Build Environment
 > Use something as: Enter-VsEnv, Exit-VsEnv
 > Environment will need to be stacked upon each other
+
+- Auto environment switch as you change directory
+- Environment viewer and diagnostics
+- Environment diff
 
 - PsEnvCheck for comprehensive environment setup check
 

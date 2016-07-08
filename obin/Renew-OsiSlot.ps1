@@ -21,8 +21,9 @@ if ($resp.StatusCode -eq 200)
   if ($resp.Content -match ".+(<table id=""body_CheckoutsTable""(.|\n)+</table>).*")
   {
     $table = $matches[1]
-    $table.Replace("&nbsp;", " ")
+    $table = $table.Replace("&nbsp;", " ")
     $xml = [xml]$table
+    # TODO: show how far away is the expiration time is from now
     return $xml.table.tr[2].td[5]
   }
   else
