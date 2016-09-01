@@ -49,11 +49,11 @@ $Workspace = "d:\dev\Workspace"
 
 . ".\OlsDev.ps1"
 
-$UserDepot = "E:\UserDepot\hew"
+$UserDepot = "D:\UserDepot\hew"
 $env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
 
 # Load the environment from xml env definition
-.\bin\envutil load $EnvFilePath
+.\bin\envutil.ps1 load $EnvFilePath
 
 # In case otools as a dependencies is removed from OE CoreXT ?
 $ExOtools = $env:otools
@@ -114,6 +114,10 @@ function c ($label) {
 
 function cdi {
   # cd into
+  if ($args[0]) {
+    Push-Location $args[0]
+  }
+
   $dirs = ls -Directory "."
   if ($dirs.Count -eq 1) {
     Push-Location $dirs[0]
