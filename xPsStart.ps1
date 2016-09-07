@@ -81,7 +81,16 @@ function devosi {
 function src { push-location $env:SrcRoot }
 
 # Build related
-function qb { quickbuild $_ }
+function qb {
+  $startTime = [DateTime]::Now
+  quickbuild $args
+  $endTime = [DateTime]::Now
+  $duration = $endTime - $startTime
+
+  Write-Host "Build starts: $startTime"
+  Write-Host "Build ends: $endTime"
+  Write-Host "Duration: $duration"
+}
 
 # JumpDict should be an env specific setting
 $jumpDict = @{
