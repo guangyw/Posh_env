@@ -10,7 +10,7 @@ param (
 	[ValidateSet("Load", "Save", "List")]
 	[String]$Action,
 
-	[Parameter(Mandatory=$true, Position=1)]
+	[Parameter(Mandatory=$false, Position=1)]
 	[Alias("Path")]
 	[String]$EnvironmentFilePath
 )
@@ -44,9 +44,17 @@ if ($Action -eq "Save") {
 
   Set-Item -Path "env:path" -Value $mergedPath
 
-} elseif ($Action -eq "List") {
+} elseif ($Action -eq "Show") {
   $envdata = Import-CliXml $EnvironmentFilePath
   return $envdata
+
+} elseif ($Action -eq "List") {
+	return ls D:\Dev\Config\ -Filter *.xml `
+	|% { [PSCustomObject] @{
+			 	Name = ($_.Name -split "\.")[0]
+				Path = $_.FullName
+			 }
+	}
 
 } else {
 

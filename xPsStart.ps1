@@ -4,6 +4,8 @@ param (
   [string]$EnvFilePath = "D:\dev\config\corext-ols-main.xml"
 )
 
+$StartupScriptLoadTime = [DateTime]::UtcNow
+
 if (Get-Module ZLocation -ListAvailable) {
   # Import Z-Location
   Import-Module ZLocation
