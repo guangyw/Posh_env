@@ -24,3 +24,15 @@ function vsOsi {
   }
   devenv $slnPath
 }
+
+function buildED {
+  Write-Host "Building SvcDef..." -ForegroundColor Cyan
+  Push-Location "$env:SrcRoot\osisvcdef\ols\"
+  quickbuild
+  Pop-Location
+
+  Write-Host "Running EDGen..." -ForegroundColor Cyan
+  Push-Location "$env:SrcRoot\osiedgen\ols\"
+  quickbuild
+  Pop-Location
+}
