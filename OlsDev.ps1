@@ -7,7 +7,7 @@ function ols {
   & $env:SrcRoot\ols\ols.bat $args
 }
 
-function vsols {
+function VsOls {
   $slnPath = "$env:SrcRoot\ols\ols.sln"
   if (-not (Test-Path $slnPath)) {
     Write-Warning "Not in an OLS enlistment"
@@ -16,7 +16,7 @@ function vsols {
   devenv $slnPath
 }
 
-function vsOsi {
+function VsSvcDef {
   $slnPath = "$env:SrcRoot\osisvcdef\ols\src\ServiceDefinitions\ols\Ols.sln"
   if (-not (Test-Path $slnPath)) {
     Write-Warning "Not in an OLS enlistment"
@@ -25,7 +25,7 @@ function vsOsi {
   devenv $slnPath
 }
 
-function buildED {
+function BuildED {
   Write-Host "Building SvcDef..." -ForegroundColor Cyan
   Push-Location "$env:SrcRoot\osisvcdef\ols\"
   quickbuild
