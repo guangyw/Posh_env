@@ -38,7 +38,7 @@ if (Test-Path $AtomPath) {
     $env:Path += ";$AtomPath"
 }
 
-if (Test-Path "D:\apps\emacs\bin") {
+if (Test-Path "D:\Apps\Emacs\bin") {
   $env:Path += ";D:\apps\emacs\bin"
 }
 
@@ -110,32 +110,12 @@ function code {
   & "C:\Program Files (x86)\Microsoft VS Code\Code.exe" $args
 }
 
-$VimRuntime = "C:\Program Files (x86)\Vim\vim74"
-function GVim
-{
-  param(
-  [Parameter(Mandatory=$false,
-    ValueFromPipeline=$true,
-    ValueFromPipelineByPropertyName=$true
-  )]
-  [Alias("FilePath", "FullName")]
-  [string[]]$Path
-  )
-
-  Begin{
-    $PathList = [System.Collections.ArrayList]@();
-  }
-
-  Process{
-    echo "Arg: $Path"
-    $Path |% {$PathList.Add($_)}
-  }
-
-  End{
-    echo "PathList is: $PathList"
-    & "$VimRunTime\gvim.exe" -p $PathList
-  }
+if (-not $env:VimRuntime) {
+  $env:VimRuntime = "D:\Dev\tools\vim80"
 }
+
+function Vim { & "$env:VimRunTime\vim.exe" $args }
+function GVim { & "$env:VimRunTime\gvim.exe" $args }
 
 
 function Test-Elevated {
