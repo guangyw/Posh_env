@@ -29,8 +29,7 @@ foreach ($line in $lines) {
   #Write-Host "Overwrite [$name] with $value"
   if ($name -eq "Path") {
     $OldPath = $env:Path
-    $IncPath = $envdata |? {$_.Key -eq "path"}
-    $IncPath = $IncPath.Value
+    $IncPath = $value
     $mergedPath = Merge-Path $OldPath $IncPath
 
     Set-Item -Path "Env:Path" -Value $mergedPath
