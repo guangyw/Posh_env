@@ -11,6 +11,7 @@ param(
 
 $TempFilePath = [System.IO.Path]::GetTempFileName()
 
+Write-Host "Init environment with $($Path)" -Foreground Blue
 cmd /c "$Path && set > $TempFilePath"
 
 if (-not (Test-Path $TempFilePath)) {
