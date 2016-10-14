@@ -21,8 +21,11 @@ if (-not (Test-Path $TempFilePath)) {
 $lines = cat $TempFilePath
 Remove-Item -Force $TempFilePath
 
+Write-Host "Importing $($lines.Count) environment variables" -Foreground Blue
+
 foreach ($line in $lines) {
-  $name, $value = $lines -split '=', 2
+  $name, $value = $line -split '=', 2
+  #Write-Host "Overwrite [$name] with $value"
   if ($name -eq "Path") {
     $OldPath = $env:Path
     $IncPath = $envdata |? {$_.Key -eq "path"}
@@ -30,7 +33,6 @@ foreach ($line in $lines) {
     $mergedPath = Merge-Path $OldPath $IncPath
 
     Set-Item -Path "Env:Path" -Value $mergedPath
-
   } else {
 
     Set-Item -Path "Env:$name" -Value $value

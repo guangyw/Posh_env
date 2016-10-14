@@ -1,7 +1,9 @@
 # PowerShell bootstrap script for OE CoreXt environment
 
 param (
-  [string]$EnvFilePath = "D:\dev\config\corext-ols-main.xml"
+  [string]$EnvFilePath = "D:\dev\config\corext-ols-main.xml",
+
+  [string]$CmdEnvFilePath
 )
 
 $StartupScriptLoadTime = [DateTime]::UtcNow
@@ -54,8 +56,12 @@ $Workspace = "d:\dev\Workspace"
 $UserDepot = "D:\UserDepot\hew"
 $env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
 
-# Load the environment from xml env definition
-.\bin\envutil.ps1 load $EnvFilePath
+# Load the environment from xml env definition, or from cmd env loader
+if ($CmdEnvFilePath) {
+  .\bin\Load-CmdEnv.ps1 $CmdEnvFilePath
+} elseif ($EnvFilePath) {
+  .\bin\envutil.ps1 load $EnvFilePath
+}
 
 # In case otools as a dependencies is removed from OE CoreXT ?
 $ExOtools = $env:otools
