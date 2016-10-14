@@ -36,3 +36,6 @@ function BuildED {
   quickbuild
   Pop-Location
 }
+
+# Config OSI OBD proxy
+Set-ObdDefaultProxyHost OsiSem
