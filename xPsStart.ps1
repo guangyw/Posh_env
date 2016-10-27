@@ -7,43 +7,11 @@ param (
 )
 
 $StartupScriptLoadTime = [DateTime]::UtcNow
-
-if (Get-Module ZLocation -ListAvailable) {
-  # Import Z-Location
-  Import-Module ZLocation
-  Write-Host -Foreground Yellow "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations."
-}
-
-# TODO: consider eliminate the requirement for this
-# (Write something better, or with better control)
-if (Get-Module Posh-Git -ListAvailable) {
-  Import-Module Posh-Git
-
-  # Set up a simple prompt, adding the git prompt parts inside git repos
-  function global:prompt {
-      $realLASTEXITCODE = $LASTEXITCODE
-
-      # TODO: show provider
-      #Write-Host($pwd.ProviderPath) -nonewline
-
-      # TODO: Do not print this if not under git repo
-      Write-Host ">" -NoNewline
-      Write-VcsStatus
-      Write-Host "`nPS $pwd" -NoNewline
-
-      $global:LASTEXITCODE = $realLASTEXITCODE
-
-      return "> "
-  }
-
-  # Let's VSO style auth
-  # Start-SshAgent -Quiet
-}
+$StartupScript = $PsCommandPath
 
 Push-Location $PsScriptRoot
 
-$Workspace = "d:\dev\Workspace"
-
+. ".\config\PreConfig.ps1"
 . ".\Profile.ps1"
 . ".\lib\FileSys.ps1"
 . ".\lib\Common.ps1"
@@ -53,33 +21,32 @@ $Workspace = "d:\dev\Workspace"
 
 . ".\OlsDev.ps1"
 
-$UserDepot = "D:\UserDepot\hew"
-$env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"
-
 # Load the environment from xml env definition, or from cmd env loader
 if ($CmdEnvFilePath) {
   .\bin\Load-CmdEnv.ps1 $CmdEnvFilePath
 } elseif ($EnvFilePath) {
-  .\bin\envutil.ps1 load $EnvFilePath
+  .\bin\EnvUtil.ps1 Load $EnvFilePath
 }
 
-# In case otools as a dependencies is removed from OE CoreXT ?
+# In case otools as a dependencies is removed from OE CoreXT
 $ExOtools = $env:otools
 
-$SdToolsOptions = @{
-    SDEDITOR = "$ExOtools\bin\resolver.exe";
-    SDFDIFF = "$ExOtools\bin\sdvdiff.exe -LO";
-    SDPDIFF = "$ExOtools\bin\sdvdiff.exe";
-    SDPWDIFF = "$ExOtools\bin\sdvdiff.exe";
-    SDVCDIFF = "$ExOtools\bin\sdvdiff.exe -LD";
-    SDVDIFF = "$ExOtools\bin\sdvdiff.exe"
+if (Test-Path $ExOtools) {
+  $SdToolsOptions = @{
+      SDEDITOR = "$ExOtools\bin\resolver.exe";
+      SDFDIFF = "$ExOtools\bin\sdvdiff.exe -LO";
+      SDPDIFF = "$ExOtools\bin\sdvdiff.exe";
+      SDPWDIFF = "$ExOtools\bin\sdvdiff.exe";
+      SDVCDIFF = "$ExOtools\bin\sdvdiff.exe -LD";
+      SDVDIFF = "$ExOtools\bin\sdvdiff.exe"
+  }
+
+  $Env:Path = "$Env:Path;$ExOtools\bin\"
 }
 
 foreach ($kv in $SdToolsOptions.GetEnumerator()) {
   Set-Item -Path "env:$($kv.Key)" -Value $kv.Value
 }
-
-$StartupScript = $PsCommandPath
 
 function devosi {
   & "$env:otools\bin\osi\devosi.bat" $args
@@ -145,14 +112,15 @@ function cdi {
 # TODO: can you access the location jumping stack somewhere?
 
 # ------------------------------------------
+
 Push-Location $env:SrcRoot;
 
 if ($env:EnlistmentName) {
   Set-Title "$env:EnlistmentName"
+} elseif ($env:ConEmuTask) {
+  $env:EnlistmentName = $env:ConEmuTask.Trim('{}')
 }
 
 Write-Logo
-
 Write-Host ""
-
-Write-Host "Welcome to PsEnv for $env:EnlistmentName (CoreXT)`n"
+Write-Host "Welcome to Posh-Env for $env:EnlistmentName (CoreXT)`n"

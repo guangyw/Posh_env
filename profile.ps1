@@ -24,6 +24,9 @@ if (-not $StartupScript)
 Push-Location $PsScriptRoot
 
 . ".\lib\Utility.ps1"
+. ".\config\Modules.ps1"
+
+$Repos = "d:\dev\repos"
 
 $FsHome = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0"
 $FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
@@ -92,18 +95,28 @@ function which
   #>
 }
 
-function Get-LastDown
+function Get-LastDownload
 {
-    # user profile is $env:UserProfile
-    $downloadFolder = Join-Path $env:UserProfile "Downloads"
-    $targetFile = ls $downloadFolder -File `
-    | Sort-Object CreationTime -Descending `
-    | Select-Object -First 1 `
+  [CmdletBinding()]
+  [Alias("getlastdown")]
+  param ()
 
-    $currentPath = Get-Location
-    Write-Host ">>> Move $($targetFile.Name) to`n>>> $currentPath"
-    Move-Item -Path $targetFile.FullName -Destination $currentPath
-    Write-Host ">>> Done"
+  $downloadLocations = Join-Path $env:USERPROFILE "Downloads"
+
+  $lastDownloadedFile = $downloadLocations `
+  | ls -File `
+  | Sort LastWriteTime -Descending `
+  | Select -First 1
+
+  if ($pwd -eq (Split-Path $lastDownloadedFile -Parent))
+  {
+      "File already in current folder"
+  }
+
+  Write-Host "Get $lastDownloadedFile"
+  Move-Item $lastDownloadedFile.FullName $pwd.Path -Force
+
+  return (Get-Item $lastDownloadedFile.Name)
 }
 
 function code {
@@ -168,7 +181,6 @@ function Reload-StartupScript
 }
 
 function Edit-StartupScript { gvim $StartupScript }
-
 
 # TODO: Move module configuration to a separate file
 # Init and config PsReadline

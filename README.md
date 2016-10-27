@@ -6,8 +6,9 @@ PowerShell configurations and scripts for both work and play.
 
 - Allow the configuration of your fav editor
 - Environment switch - e.g. Visual Studio Build Environment
-> Use something as: Enter-VsEnv, Exit-VsEnv
 > Environment will need to be stacked upon each other
+
+> Use something as: Posh-Env, Pop-Env
 
 - Auto environment switch as you change directory
 - Environment viewer and diagnostics
