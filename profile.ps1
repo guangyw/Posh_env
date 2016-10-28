@@ -6,16 +6,6 @@
 
 $UserProfile = "$PsScriptRoot\Profile.ps1"
 
-# TODO: this should be deprecated in favor of Autojump / Z-Location
-if ((-not $Workspace) -or -not (Test-Path $Workspace)) {
-  foreach ($ws in "d:\dev\workspace", "c:\dev\workspace", "e:\Workspace") {
-    if (Test-Path $ws) {
-      $Workspace = $ws
-      break
-    }
-  }
-}
-
 if (-not $StartupScript)
 {
   $StartupScript = $UserProfile
@@ -23,30 +13,36 @@ if (-not $StartupScript)
 
 Push-Location $PsScriptRoot
 
+. ".\lib\Common.ps1"
 . ".\lib\Utility.ps1"
+. ".\lib\FileSys.ps1"
+. ".\lib\EnvLib.ps1"
+
 . ".\config\Modules.ps1"
+
+Add-Path .\bin
+Add-Path .\obin
+Add-Path .\ositools
 
 $Repos = "d:\dev\repos"
 
 $FsHome = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0"
 $FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
 $CygwinBinPath = "D:\cygwin64\bin\"
-$env:Path += ";$FsBinPath"
-#$env:Path = "$CygwinBinPath;" + $env:Path
-$env:Path += ";$PsScriptRoot\bin"
-$env:Path += ";$PsScriptRoot\obin"
+
+Add-Path $FsBinPath
 
 $AtomPath = "C:\Users\hew\AppData\Local\atom\bin"
 if (Test-Path $AtomPath) {
-    $env:Path += ";$AtomPath"
+    Add-Path $AtomPath
 }
 
 if (Test-Path "D:\Apps\Emacs\bin") {
-  $env:Path += ";D:\apps\emacs\bin"
+  Add-Path D:\apps\emacs\bin
 }
 
 if (Test-Path "D:\Apps\Racket") {
-  $env:Path += ";D:\Apps\Racket"
+  Add-Path D:\Apps\Racket
 }
 
 $env:PathExt += ";.Py"

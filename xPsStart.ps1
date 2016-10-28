@@ -13,8 +13,6 @@ Push-Location $PsScriptRoot
 
 . ".\config\PreConfig.ps1"
 . ".\Profile.ps1"
-. ".\lib\FileSys.ps1"
-. ".\lib\Common.ps1"
 
 # It would still be useful to have basic otools commands in CoreXt environment
 . ".\lib\SdCommon.ps1"
@@ -27,6 +25,9 @@ if ($CmdEnvFilePath) {
 } elseif ($EnvFilePath) {
   .\bin\EnvUtil.ps1 Load $EnvFilePath
 }
+
+# Add ositools to path
+Add-Path .\OsiTools\
 
 # In case otools as a dependencies is removed from OE CoreXT
 $ExOtools = $env:otools
@@ -41,11 +42,11 @@ if (Test-Path $ExOtools) {
       SDVDIFF = "$ExOtools\bin\sdvdiff.exe"
   }
 
-  $Env:Path = "$Env:Path;$ExOtools\bin\"
-}
+  foreach ($kv in $SdToolsOptions.GetEnumerator()) {
+    Set-Item -Path "env:$($kv.Key)" -Value $kv.Value
+  }
 
-foreach ($kv in $SdToolsOptions.GetEnumerator()) {
-  Set-Item -Path "env:$($kv.Key)" -Value $kv.Value
+  Add-Path $ExOtools\bin\
 }
 
 function devosi {
