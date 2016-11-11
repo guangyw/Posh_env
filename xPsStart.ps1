@@ -58,6 +58,10 @@ function src { push-location $env:SrcRoot }
 
 # Build related
 function qb {
+  if ($args -eq "nocache") {
+    $args = "-CacheType", "None"
+  }
+
   $startTime = [DateTime]::Now
   quickbuild $args
   $endTime = [DateTime]::Now
