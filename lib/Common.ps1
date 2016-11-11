@@ -1,4 +1,6 @@
 
+$PsEnvRoot = (Split-Path $PSScriptRoot -Parent).FullName
+
 function Write-Logo {
 
   Write-Host @"
