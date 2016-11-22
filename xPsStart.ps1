@@ -12,12 +12,6 @@ $StartupScript = $PsCommandPath
 Push-Location $PsScriptRoot
 
 . ".\config\PreConfig.ps1"
-. ".\Profile.ps1"
-
-# It would still be useful to have basic otools commands in CoreXt environment
-. ".\lib\SdCommon.ps1"
-
-. ".\OlsDev.ps1"
 
 # Load the environment from xml env definition, or from cmd env loader
 if ($CmdEnvFilePath) {
@@ -25,6 +19,16 @@ if ($CmdEnvFilePath) {
 } elseif ($EnvFilePath) {
   .\bin\EnvUtil.ps1 Load $EnvFilePath
 }
+
+
+# Load the entire non-Office dependent profile
+. ".\Profile.ps1"
+
+# It would still be useful to have basic otools commands in CoreXt environment
+. ".\lib\SdCommon.ps1"
+
+# Ols specific config and tooling
+. ".\OlsDev.ps1"
 
 # Add ositools to path
 Add-Path .\OsiTools\
