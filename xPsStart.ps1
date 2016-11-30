@@ -15,11 +15,17 @@ Push-Location $PsScriptRoot
 
 # Load the environment from xml env definition, or from cmd env loader
 if ($CmdEnvFilePath) {
+  $EnvironmentOrigin = $CmdEnvFilePath
   .\bin\Load-CmdEnv.ps1 $CmdEnvFilePath
 } elseif ($EnvFilePath) {
+  $EnvironmentOrigin = $EnvFilePath
   .\bin\EnvUtil.ps1 Load $EnvFilePath
 }
 
+# Checking loading of the env is successful
+if (-not $env:otools) {
+  Write-Error "Failed to load environment from $EnvironmentOrigin" -Category InvalidResult
+}
 
 # Load the entire non-Office dependent profile
 . ".\Profile.ps1"
@@ -27,11 +33,12 @@ if ($CmdEnvFilePath) {
 # It would still be useful to have basic otools commands in CoreXt environment
 . ".\lib\SdCommon.ps1"
 
-# Ols specific config and tooling
-. ".\OlsDev.ps1"
+# OSI specific tools and configs
+Add-Path .\OSI\
 
-# Add ositools to path
-Add-Path .\OsiTools\
+# OLS specific tools and configs
+. ".\OlsDev.ps1"
+Add-Path .\OLS\
 
 # In case otools as a dependencies is removed from OE CoreXT
 $ExOtools = $env:otools

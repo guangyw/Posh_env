@@ -38,4 +38,7 @@ function BuildED {
 }
 
 # Config OSI OBD proxy
+if (-not (Get-Module Obd)) {
+  Import-Module Obd
+}
 Set-ObdDefaultProxyHost OsiSem

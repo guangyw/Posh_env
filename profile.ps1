@@ -22,7 +22,7 @@ Push-Location $PsScriptRoot
 
 Add-Path .\bin
 Add-Path .\obin
-Add-Path .\ositools
+Add-Path .\OSI
 
 $Repos = "d:\dev\repos"
 
