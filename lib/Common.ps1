@@ -1,6 +1,11 @@
 
 $PsEnvRoot = (Split-Path $PSScriptRoot -Parent).FullName
 
+. $PsScriptRoot\..\config\ManageConfig.ps1
+
+
+
+
 function Write-Logo {
 
   Write-Host @"
