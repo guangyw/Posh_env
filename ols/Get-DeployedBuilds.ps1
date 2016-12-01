@@ -15,5 +15,4 @@ $ServicePools = Get-ServicePools `
     }
   }
 
-
 return $ServicePools

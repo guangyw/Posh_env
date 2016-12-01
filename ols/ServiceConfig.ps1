@@ -16,11 +16,11 @@ $ServicePools = @(
   Row "SCUS-EDog" "scus-zzz.ols.edog.officeapps.live.com" "EDog" "WorldWide";
   Row "WUS-EDog" "wus-zzz.ols.edog.officeapps.live.com" "EDog" "WorldWide";
 
-  Row "WUS-Prod" "wus-zzz.ols.officeapps.live.com" "Production" "WorldWide";
-  Row "SCUS-Prod" "scus-zzz.ols.officeapps.live.com" "Production" "WorldWide";
   Row "NCUS-000-Prod" "ncus-000.ols.officeapps.live.com" "Production" "WorldWide";
   Row "NCUS-001-Prod" "ncus-001.ols.officeapps.live.com" "Production" "WorldWide";
   Row "NCUS-ZZZ-Prod" "ncus-zzz.ols.officeapps.live.com" "Production" "WorldWide";
+  Row "WUS-Prod" "wus-zzz.ols.officeapps.live.com" "Production" "WorldWide";
+  Row "SCUS-Prod" "scus-zzz.ols.officeapps.live.com" "Production" "WorldWide";
 
   # BlackForest
   Row "DEC-Prod" "dec-000.ols.osi.office.de" "Production" "BlackForest";
