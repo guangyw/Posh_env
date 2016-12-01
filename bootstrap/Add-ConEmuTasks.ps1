@@ -31,7 +31,8 @@ $xPsStartPath = (Get-Item $PsScriptRoot\..\xPsStart.ps1).FullName
 $environments = Get-PsEnvironments
 
 foreach ($env in $environments) {
-  $palette = Get-RandomPalette
   
+  $palette = Get-RandomPalette
+
   $startupCmd = "*PowerShell.exe -NoExit -new_console:P:'<$palette>' -File '$xPsStartPath' -EnvironmentName $($env.Name)"
 }
