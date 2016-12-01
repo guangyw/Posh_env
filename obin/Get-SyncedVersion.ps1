@@ -1,4 +1,6 @@
 $otoolsincdir = "$env:otools\inc\otools"
+
+# Both are for the old SD devmain/tenant trees
 $SyncLabelFilePath = "$otoolsincdir\OfficeSyncLabel.txt"
 $LabVersionFilePath = "$otoolsincdir\OfficeLabVersion.txt"
 
