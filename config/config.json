@@ -13,6 +13,8 @@
         "MasterBranch" : "develop"
       },
       "StartupScript" : "D:/repos/OLS/tools/path1st/myenv.cmd",
+      "Configurations" : {
+      }
     },
     {
       "Name" : "Git-xOLS",
@@ -24,9 +26,31 @@
         "MasterBranch" : "develop"
       },
       "StartupScript" : "D:/repos/xOLS/tools/path1st/myenv.cmd",
+      "Configurations" : {
+      }
+    },
+    {
+      "Name" : "VS14_DevCmd",
+      "Type" : "Regular",
+      "Root" : "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0",
+      "SourceControl" : {
+        "Type" : "None"
+      },
+      "StartupScript" : "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat",
+      "Configurations" : {
+      }
     }
   ],
   "Configurations" : {
-    "Editor" : ""
+    "Editor" : "D:/Dev/tools/vim80/gvim.exe",
+    "Workspace" : "D:/Dev/Workspace",
+    "Path" : [
+      "$PsEnvRoot/obin/",
+      "$PsEnvRoot/OSI/",
+      "$PsEnvRoot/OLS/"
+    ],
+    "EnvironmentVariableOverrides" : {
+      "Corext_CleanCacheOnInitAge": 0
+    }
   }
 }

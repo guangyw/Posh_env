@@ -8,12 +8,9 @@ if (Get-Module ZLocation -ListAvailable) {
 
 # --------- Posh-Git ---------
 
-# TODO: consider eliminate the requirement for this
-# (Write something better, or with better control)
 if (Get-Module Posh-Git -ListAvailable) {
   Import-Module Posh-Git
 
-  # Set up a simple prompt, adding the git prompt parts inside git repos
   function global:prompt {
       $realLASTEXITCODE = $LASTEXITCODE
 
@@ -30,6 +27,6 @@ if (Get-Module Posh-Git -ListAvailable) {
       return "> "
   }
 
-  # Let's VSO style auth
+  # Let's use VSO style auth
   # Start-SshAgent -Quiet
 }

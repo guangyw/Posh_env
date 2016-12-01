@@ -1,10 +1,7 @@
 
-$PsEnvRoot = (Split-Path $PSScriptRoot -Parent).FullName
+$PsEnvRoot = (Get-Item (Split-Path $PSScriptRoot -Parent)).FullName
 
 . $PsScriptRoot\..\config\ManageConfig.ps1
-
-
-
 
 function Write-Logo {
 

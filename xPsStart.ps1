@@ -1,7 +1,7 @@
 # PowerShell bootstrap script for OE CoreXt environment
 
 param (
-  [string]$EnvFilePath = "D:\dev\config\corext-ols-main.xml",
+  [string]$EnvironmentName,
 
   [string]$CmdEnvFilePath
 )
@@ -11,25 +11,28 @@ $StartupScript = $PsCommandPath
 
 Push-Location $PsScriptRoot
 
-. ".\config\PreConfig.ps1"
+# Three types of configurations
+# 1. General plain configs
+# 2. PsEnv system configs
+# 3. Office related configs (CoreXt, OSI, OLS)
 
-# Load the environment from xml env definition, or from cmd env loader
-if ($CmdEnvFilePath) {
-  $EnvironmentOrigin = $CmdEnvFilePath
+. ".\config\ManageConfig.ps1"
+. ".\lib\CoreXtEnvCache.ps1"
+. ".\Profile.ps1"
+
+if ($EnvironmentName) {
+  Init-EnvWithCache $EnvironmentName
+} elseif ($CmdEnvFilePath) {
+  # TODO: Simplify -> what is 1, 2, and 3
   .\bin\Load-CmdEnv.ps1 $CmdEnvFilePath
-} elseif ($EnvFilePath) {
-  $EnvironmentOrigin = $EnvFilePath
-  .\bin\EnvUtil.ps1 Load $EnvFilePath
+} else {
+  Write-Error "Expect EnvironmentName or CmdEnvFilePath"
 }
 
 # Checking loading of the env is successful
 if (-not $env:otools) {
   Write-Error "Failed to load environment from $EnvironmentOrigin" -Category InvalidResult
 }
-
-# Load the entire non-Office dependent profile
-. ".\Profile.ps1"
-
 # It would still be useful to have basic otools commands in CoreXt environment
 . ".\lib\SdCommon.ps1"
 

@@ -1,20 +1,24 @@
-# Posh-Env - PowerShell Environment
+# PsEnv - PowerShell Environment
 
 PowerShell configurations and scripts for both work and play.
 
 ## TODOs
 
-- Allow the configuration of your fav editor
-- Environment switch - e.g. Visual Studio Build Environment
-> Environment will need to be stacked upon each other
-
-> Use something as: Posh-Env, Pop-Env
-
+- Environment Caching
 - Auto environment switch as you change directory
+  > Use something as: Posh-Env, Pop-Env
+
+- Environment switch - e.g. Visual Studio Build Environment
+  > Environment will need to be stacked upon each other
+
+// Nice to have, maybe too much
+- PsEnvCheck for comprehensive environment setup check
 - Environment viewer and diagnostics
 - Environment diff
 
-- PsEnvCheck for comprehensive environment setup check
+- Allow the configuration of your fav editor (in PreConfig.ps1, or force as user config?)
+
+- GetIp
 
 # DONEs
 
