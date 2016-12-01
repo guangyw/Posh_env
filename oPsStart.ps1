@@ -23,7 +23,7 @@ $env:JAVA_HOME = "E:\App\jdk1.8.0_65"
 . ".\lib\FileSys.ps1"
 . ".\lib\SdCommon.ps1"
 
-. ".\OlsDev.ps1"
+. ".\OLS\OlsDevConfig.ps1"
 
 $UserDepot = "E:\UserDepot\hew"
 $env:Path = "$UserDepot\bin;$UserDepot\Scripts;$env:Path"

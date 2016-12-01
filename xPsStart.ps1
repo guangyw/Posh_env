@@ -37,7 +37,7 @@ if (-not $env:otools) {
 Add-Path .\OSI\
 
 # OLS specific tools and configs
-. ".\OlsDev.ps1"
+. ".\OLS\OlsDevConfig.ps1"
 Add-Path .\OLS\
 
 # In case otools as a dependencies is removed from OE CoreXT

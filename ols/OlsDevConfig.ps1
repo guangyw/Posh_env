@@ -42,3 +42,7 @@ if (-not (Get-Module Obd)) {
   Import-Module Obd
 }
 Set-ObdDefaultProxyHost OsiSem
+
+. $PSScriptRoot\ServiceConfig.ps1
+
+$ServicePools = Get-ServicePools
