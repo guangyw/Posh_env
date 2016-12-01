@@ -31,11 +31,9 @@ $builds = Get-ObdVersion -ServicePoolId $ServicePoolId -AzureEnvironment $AzureE
 
 $uniqueBuilds = $builds | Select -Expand Version -Unique | Sort
 
-return $uniqueBuilds
-
 if ($uniqueBuilds.Count -eq 1) {
   [PsCustomObject] @{
-    BuildNumber = $uniqueBuilds[0]
+    BuildNumber = $uniqueBuilds
     Status = "Deployed"
   }
 } else {
