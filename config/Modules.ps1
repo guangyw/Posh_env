@@ -17,13 +17,13 @@ if (Get-Module Posh-Git -ListAvailable) {
   function global:prompt {
       $realLASTEXITCODE = $LASTEXITCODE
 
-      # TODO: show provider
-      #Write-Host($pwd.ProviderPath) -nonewline
+      if (Get-GitDirectory) {
+        Write-Host ">" -NoNewline
+        Write-VcsStatus
+        Write-Host ""
+      }
 
-      # TODO: Do not print this if not under git repo
-      Write-Host ">" -NoNewline
-      Write-VcsStatus
-      Write-Host "`nPS $pwd" -NoNewline
+      Write-Host "PS $pwd" -NoNewline
 
       $global:LASTEXITCODE = $realLASTEXITCODE
 
