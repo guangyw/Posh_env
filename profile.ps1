@@ -6,19 +6,12 @@
 
 $UserProfile = "$PsScriptRoot\Profile.ps1"
 
-if (-not $StartupScript)
-{
-  $StartupScript = $UserProfile
-}
-
 Push-Location $PsScriptRoot
 
 . ".\lib\Common.ps1"
 . ".\lib\Utility.ps1"
 . ".\lib\FileSys.ps1"
 . ".\lib\EnvLib.ps1"
-
-. ".\config\Modules.ps1"
 
 Add-Path .\bin
 Add-Path .\obin
@@ -57,7 +50,7 @@ $FscPath = "$FsBinPath\Fsc.exe"
 $MiniCygBin = "D:\Dev\Cygbin"
 Set-Alias rlwrap "$MiniCygBin\rlwrap.exe"
 
-#function fsi {rlwrap fsi $args}
+function fsi {rlwrap fsi $args}
 
 Set-Alias l ls
 Set-Alias posh powershell
@@ -68,8 +61,6 @@ function lla {ls -Force}
 function .. { push-location .. }
 function ... { push-location ../.. }
 function e. {explorer .}
-
-function Edit-Vimrc { gvim $home\.vimrc.local }
 
 function which
 {
@@ -115,15 +106,12 @@ function Get-LastDownload
   return (Get-Item $lastDownloadedFile.Name)
 }
 
-function code {
-  & "C:\Program Files (x86)\Microsoft VS Code\Code.exe" $args
-}
-
 if (-not $env:VimRuntime) {
   $env:VimRuntime = "D:\Dev\tools\vim80"
 }
 
 function Vim { & "$env:VimRunTime\vim.exe" $args }
+
 function GVim { & "$env:VimRunTime\gvim.exe" $args }
 
 
@@ -157,36 +145,6 @@ function CopyPath {
     $absPath = (Get-Item $path).FullName
     echo "Copy $absPath"
     $absPath | clip
-}
-
-function Reload-Profile
-{
-  . $UserProfile
-
-  echo "Profile is reloaded"
-}
-
-function Edit-Profile { gvim $UserProfile }
-
-function Reload-StartupScript
-{
-  $previousLocation = $pwd
-  . $startupScript
-  echo "Startup script reloaded"
-  cd $previousLocation
-}
-
-function Edit-StartupScript { gvim $StartupScript }
-
-# TODO: Move module configuration to a separate file
-# Init and config PsReadline
-# Should put PsReadline related configs in a separate file
-# Should detect if the PS Host is PsReadline-sible
-
-if ($host.Name -eq 'ConsoleHost')
-{
-  Import-Module PSReadLine
-  Set-PSReadlineOption -EditMode Emacs
 }
 
 Pop-Location

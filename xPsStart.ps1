@@ -1,13 +1,12 @@
 # PowerShell bootstrap script for OE CoreXt environment
 
 param (
-  [string]$EnvironmentName,
-
-  [string]$CmdEnvFilePath
+  [Parameter(Mandatory=$true)]
+  [string]$EnvironmentName
 )
 
-$StartupScriptLoadTime = [DateTime]::UtcNow
-$StartupScript = $PsCommandPath
+$global:_PsEnv_StartupTime = [DateTime]::UtcNow
+$global:_PsEnv_StartupCommand = $PsCommandPath
 
 Push-Location $PsScriptRoot
 
@@ -16,15 +15,23 @@ Push-Location $PsScriptRoot
 # 2. PsEnv system configs
 # 3. Office related configs (CoreXt, OSI, OLS)
 
+. ".\lib\Common.ps1"
 . ".\config\ManageConfig.ps1"
 . ".\lib\CoreXtEnvCache.ps1"
 . ".\Profile.ps1"
+. ".\lib\EnvLib.ps1"
+. ".\lib\Utility.ps1"
+. ".\lib\OfficeUtility.ps1"
+. ".\lib\FileSys.ps1"
+
+Init-PsEnv $EnvironmentName
+
+. ".\config\LoadModules.ps1"
+
+$config = Get-PsEnvironmentConfig $EnvironmentName
 
 if ($EnvironmentName) {
   Init-EnvWithCache $EnvironmentName
-} elseif ($CmdEnvFilePath) {
-  # TODO: Simplify -> what is 1, 2, and 3
-  .\bin\Load-CmdEnv.ps1 $CmdEnvFilePath
 } else {
   Write-Error "Expect EnvironmentName or CmdEnvFilePath"
 }
@@ -68,7 +75,7 @@ function devosi {
 }
 
 # Directory shortcuts
-function src { push-location $env:SrcRoot }
+function src { Push-Location $env:SrcRoot }
 
 # Build related
 function qb {
@@ -142,4 +149,5 @@ if ($env:EnlistmentName) {
 
 Write-Logo
 Write-Host ""
-Write-Host "Welcome to Posh-Env for $env:EnlistmentName (CoreXT)`n"
+Write-Host "Welcome to PsEnv for $($config.Name) ($($config.Type))"
+Write-Host ""

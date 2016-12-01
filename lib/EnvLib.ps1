@@ -1,10 +1,18 @@
-## A collection of base environment variables
-# System envs
-# User envs
+. $PsScriptRoot\..\config\ManageConfig.ps1
 
-## Implement the logic for environment switch
-# e.g. for a pre-defined set of environment (with enlistments correspondence),
-# it is trival to switch to any of them instantly (with switch back logic)
+function Init-PsEnv {
+  param (
+    [Parameter(Mandatory=$true)]
+    [string]$EnvironmentName
+  )
+
+  $config = Get-PsEnvironmentConfig $EnvironmentName
+
+  $global:_PsEnv_Name = $config.Name
+  $global:_PsEnv_Type = $config.Type
+  $global:_PsEnv_Root = $config.Root
+  $global:_PsEnv_InitScript = $config.InitScript
+}
 
 function Add-Path {
   param(

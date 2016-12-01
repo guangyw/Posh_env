@@ -8,3 +8,5 @@ logs/
 __pycache__
 
 .data/
+
+# TODO, should ignore config.json, but leave config.json.sample

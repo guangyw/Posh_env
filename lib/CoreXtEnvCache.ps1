@@ -1,22 +1,10 @@
-Push-Location $PSScriptRoot
-
-. .\Common.ps1
+. $PsScriptRoot\Common.ps1
 
 $CacheLocation = Join-Path $PsEnvRoot ".data\EnvironmentCache\"
 
 if (-not (Test-Path $CacheLocation)) {
   mkdir $CacheLocation
 }
-
-$MonitoredFiles = @(
-  # Path relative to the repo root
-  "private\otools\ovr\tenantols.meta"
-  "private\otools\ovr\tenantols.override"
-  ".corext\corext.config"
-  "build\corext\corext.config"
-  "private/warehouse/tenantols/cross/cross/x-none/NugetImportPackage.manifest"
-  "build/config/office_cloudbuild_config.json"
-)
 
 function Get-EnvHashPath {
   param (
@@ -36,7 +24,7 @@ function Get-EnvCachePath {
   Join-Path $CacheLocation "Environment.$EnvironmentName.xml"
 }
 
-function Get-CurrentEnvHash {
+function Get-CurrentEnvHashByIdFiles {
   param (
     [Parameter(Mandatory=$true)]
     [string]$EnvironmentName
@@ -44,13 +32,21 @@ function Get-CurrentEnvHash {
 
   $config = Get-PsEnvironmentConfig $EnvironmentName
 
-  $contents = $MonitoredFiles `
+  $monitoredFiles = $config.EnvironmentTypeConfig.CacheIdFiles
+
+  $contents = $monitoredFiles `
   |% { Join-Path $config.Root $_ } `
-  |? { Test-Path $_ } `
+  |? { Test-Path $_ <# Silently ignore non-existance #> } `
   | Sort `
   |% { Get-Content $_ }
 
   $content = $contents -join ''
+
+  # $content can be empty because we silently ignored some files
+  if (-not $content) {
+    # Return random hash
+    return [Guid]::NewGuid().ToString()
+  }
 
   $Hash = $content.GetHashCode()
   Write-Host "[Debug] Current Env Hash: $Hash" -ForegroundColor Cyan
@@ -66,6 +62,8 @@ function Get-CachedEnvHash {
 
   $envHashPath = Get-EnvHashPath $EnvironmentName
 
+  # TODO: metadata for the hash
+  # LastWriteTime / Generate time
   if (Test-Path $envHashPath) {
     cat $envHashPath
   } else {
@@ -73,13 +71,13 @@ function Get-CachedEnvHash {
   }
 }
 
-function Test-Cache {
+function Test-CacheByIdFiles {
   param (
     [Parameter(Mandatory=$true)]
     [string]$EnvironmentName
   )
 
-  $CurrentEnvHash = Get-CurrentEnvHash $EnvironmentName
+  $CurrentEnvHash = Get-CurrentEnvHashByIdFiles $EnvironmentName
   $CachedEnvHash = Get-CachedEnvHash $EnvironmentName
 
   $CurrentEnvHash -eq $CachedEnvHash
@@ -91,7 +89,7 @@ function Save-Cache {
     [string]$EnvironmentName
   )
 
-  $currentEnvHash = Get-CurrentEnvHash $EnvironmentName
+  $currentEnvHash = Get-CurrentEnvHashByIdFiles $EnvironmentName
   $envHashPath = Get-EnvHashPath $EnvironmentName
   $currentEnvHash | Out-File $envHashPath -Encoding UTF8 -Force -NoNewline
 
@@ -105,17 +103,32 @@ function Init-EnvWithCache {
     [string]$EnvironmentName
   )
 
-  if (Test-Cache $EnvironmentName) {
-    $envCachePath = Get-EnvCachePath $EnvironmentName
-    EnvUtil Load $envCachePath
-    return
-  }
-
-  Write-Host "Env cache miss, init from $($config.StartupScript)"
   $config = Get-PsEnvironmentConfig $EnvironmentName
-  Load-CmdEnv $config.StartupScript
+  $cachePolicy = $config.EnvironmentTypeConfig.CachePolicy
 
-  Save-Cache $EnvironmentName
+  if ($cachePolicy -eq "None") {
+
+    Load-CmdEnv $config.InitScript
+
+  } elseif ($cachePolicy -eq "ByIdFiles") {
+
+    if (Test-CacheByIdFiles $EnvironmentName) {
+      Write-Verbose "Env cache hit -> cache timestamp [TODO]"
+      $envCachePath = Get-EnvCachePath $EnvironmentName
+      EnvUtil Load $envCachePath
+      return
+    }
+
+    Write-Verbose "Env cache miss -> init from $($config.InitScript)"
+    Load-CmdEnv $config.InitScript
+
+    Save-Cache $EnvironmentName
+
+  } else {
+
+    Write-Warning "Unknown CachePolicy $cachePolicy"
+
+    Load-CmdEnv $config.InitScript
+
+  }
 }
-
-Pop-Location

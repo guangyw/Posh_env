@@ -1,10 +1,9 @@
 # Startup script for Regular PowerShell environment
 
 Push-Location $PsScriptRoot
-$StartupScript = $PsCommandPath
+$PsEnvStartupScript = $PsCommandPath
 
 . ".\Profile.ps1"
-. ".\RuntimeHelper.ps1" # Experimental
 
 Pop-Location
 
