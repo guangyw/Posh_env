@@ -1,6 +1,7 @@
 *.xml
 .*.swp
 *.pyc
+*~
 data/
 logs/
 *.log
