@@ -8,6 +8,7 @@ function Init-PsEnv {
 
   $config = Get-PsEnvironmentConfig $EnvironmentName
 
+  $global:_PsEnv_EnvConfig = $config
   $global:_PsEnv_Name = $config.Name
   $global:_PsEnv_Type = $config.Type
   $global:_PsEnv_Root = $config.Root

@@ -18,8 +18,16 @@ if (Get-Module Posh-Git -ListAvailable) {
       Write-Host "$($global:_PsEnv_Name)" -NoNewline -ForegroundColor Blue
       Write-Host "]" -NoNewline -ForegroundColor Yellow
 
-      if (Get-GitDirectory) {
+      $gitDir = Get-GitDirectory
+      if ($gitDir) {
         Write-VcsStatus
+
+        $gitRoot = Get-Item (Split-Path -Parent $gitDir)
+        $envRoot = Get-Item ($global:_PsEnv_EnvConfig.Root)
+
+        if ($gitRoot.FullName -ne $envRoot.FullName) {
+          Write-Host " !FR!" -NoNewline -ForegroundColor Yellow
+        }
       }
 
       Write-Host ""
