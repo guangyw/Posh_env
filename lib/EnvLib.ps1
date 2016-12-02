@@ -12,6 +12,8 @@ function Init-PsEnv {
   $global:_PsEnv_Type = $config.Type
   $global:_PsEnv_Root = $config.Root
   $global:_PsEnv_InitScript = $config.InitScript
+
+  $global:_PsEnv_Workspace = $config.Configurations.Workspace
 }
 
 function Add-Path {

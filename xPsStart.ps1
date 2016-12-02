@@ -5,28 +5,31 @@ param (
   [string]$EnvironmentName
 )
 
+# This will be effective in the entire PowerShell session
+Set-StrictMode -Version latest
+
 $global:_PsEnv_StartupTime = [DateTime]::UtcNow
 $global:_PsEnv_StartupCommand = $PsCommandPath
 
 Push-Location $PsScriptRoot
 
-# Three types of configurations
-# 1. General plain configs
-# 2. PsEnv system configs
-# 3. Office related configs (CoreXt, OSI, OLS)
+# Regular profile that has nothing to do with PsEnv
+. ".\Profile.ps1"
 
+# PsEnv imports
 . ".\lib\Common.ps1"
 . ".\config\ManageConfig.ps1"
 . ".\lib\CoreXtEnvCache.ps1"
-. ".\Profile.ps1"
 . ".\lib\EnvLib.ps1"
 . ".\lib\Utility.ps1"
-. ".\lib\OfficeUtility.ps1"
 . ".\lib\FileSys.ps1"
+
+# Office related files -- move to elsewhere
+. ".\lib\OfficeUtility.ps1"
 
 Init-PsEnv $EnvironmentName
 
-. ".\config\LoadModules.ps1"
+. ".\Config\LoadModules.ps1"
 
 $config = Get-PsEnvironmentConfig $EnvironmentName
 
@@ -107,7 +110,7 @@ $jumpDict = @{
   build = "$env:SrcRoot\..\out\x64\debug";
   olsbuild = "$env:SrcRoot\..\out\x64\debug\ols";
 
-  ws = $workspace;
+  ws = $global:_PsEnv_Workspace;
   "posh-env" = $PsScriptRoot;
 
   downloads = "$env:home\Downloads";

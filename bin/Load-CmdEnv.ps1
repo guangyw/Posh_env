@@ -13,7 +13,7 @@ $TempFilePath = [System.IO.Path]::GetTempFileName()
 
 Write-Host "Initializing environment with $($Path)" -Foreground Blue
 
-cmd /c "$Path && set > $TempFilePath"
+cmd /c "`"$Path`" && set > `"$TempFilePath`""
 
 if (-not (Test-Path $TempFilePath)) {
   Write-Error "Cannot find expected temp file $TempFilePath" -Category InvalidData
