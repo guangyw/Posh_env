@@ -17,6 +17,15 @@ function Init-PsEnv {
   $global:_PsEnv_Workspace = $config.Configurations.Workspace
 }
 
+function Switch-Environment {
+  param (
+    [Parameter(Mandatory=$true)]
+    [string]$EnvironmentName
+  )
+
+  . $PsScriptRoot\..\xPsStart.ps1 -EnvironmentName $EnvironmentName
+}
+
 function Add-Path {
   param(
     [Parameter(mandatory=$true)]

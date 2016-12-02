@@ -111,7 +111,7 @@ $jumpDict = @{
   olsbuild = "$env:SrcRoot\..\out\x64\debug\ols";
 
   ws = $global:_PsEnv_Workspace;
-  "posh-env" = $PsScriptRoot;
+  "psenv" = $PsScriptRoot;
 
   downloads = "$env:home\Downloads";
 }
@@ -144,6 +144,7 @@ function cdi {
 
 Push-Location $env:SrcRoot;
 
+# TODO: Title is currently being overridden by posh-git
 if ($env:EnlistmentName) {
   Set-Title "$env:EnlistmentName"
 } elseif ($env:ConEmuTask) {
