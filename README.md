@@ -17,4 +17,5 @@ PowerShell configurations and scripts for both work and play.
 - Environment viewer and diagnostics
 - Environment diff
 
-- GetIp
+- Create environment for PsEnv itself for developing and testing
+- Respect ConEmu palette configs

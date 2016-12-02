@@ -14,6 +14,7 @@
       },
       "InitScript" : "D:/repos/OLS/tools/path1st/myenv.cmd",
       "Configurations" : {
+        "ConEmu_Palette" : "Tomorrow Night Eighties"
       }
     },
     {
@@ -27,6 +28,7 @@
       },
       "InitScript" : "D:/repos/xOLS/tools/path1st/myenv.cmd",
       "Configurations" : {
+        "ConEmu_Palette" : "SolaMe"
       }
     },
     {
@@ -40,6 +42,7 @@
       },
       "InitScript" : "D:/repos/OMEX/tools/path1st/myenv.cmd",
       "Configurations" : {
+        "ConEmu_Palette" : "Tomorrow Night"
       }
     },
     {
@@ -53,6 +56,7 @@
       },
       "InitScript" : "D:/repos/OSI/tools/path1st/myenv.cmd",
       "Configurations" : {
+        "ConEmu_Palette" : "Solarized"
       }
     },
     {
@@ -94,6 +98,7 @@
     "Editor" : "D:/Dev/tools/vim80/gvim.exe",
     "Workspace" : "D:/Dev/Workspace",
     "AutoSwitch" : false,
+    "ConEmu_Palette" : "Tomorrow Night",
     "Path" : [
       "$PsEnvRoot/obin/",
       "$PsEnvRoot/OSI/",
