@@ -30,6 +30,32 @@
       }
     },
     {
+      "Name" : "Git-OMEX",
+      "Type" : "Office_CoreXtV5",
+      "Root" : "D:/repos/OMEX",
+      "SourceControl" : {
+        "Type" : "Git",
+        "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OMEX",
+        "MasterBranch" : "develop"
+      },
+      "InitScript" : "D:/repos/OMEX/tools/path1st/myenv.cmd",
+      "Configurations" : {
+      }
+    },
+    {
+      "Name" : "Git-OSI",
+      "Type" : "Office_CoreXtV5",
+      "Root" : "D:/repos/OSI",
+      "SourceControl" : {
+        "Type" : "Git",
+        "Remote" : "ssh://office@office.visualstudio.com:22/OE/_git/OSI",
+        "MasterBranch" : "master"
+      },
+      "InitScript" : "D:/repos/OSI/tools/path1st/myenv.cmd",
+      "Configurations" : {
+      }
+    },
+    {
       "Name" : "VS14_DevCmd",
       "Type" : "Regular",
       "Root" : "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0",

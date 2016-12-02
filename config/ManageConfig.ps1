@@ -2,7 +2,7 @@ $ConfigFilePath = Join-Path $PsScriptRoot "config.json"
 
 function Get-PsEnvFullConfig {
   # Configurations from any other places?
-  if (Test-Path Variable:Global:_PsEnv_FullConfig) {
+  if ((Test-Path Variable:Global:_PsEnv_FullConfig) -and $global:_PsEnv_FullConfig) {
     return $global:_PsEnv_FullConfig
   }
 

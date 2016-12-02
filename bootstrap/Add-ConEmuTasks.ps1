@@ -40,6 +40,19 @@ $settingDoc = [xml](cat $ConEmuSettingPath)
 $taskNodes = $settingDoc.key.key.key.key `
 |? {$_.name -eq "Tasks"}
 
+# Cleanup unused tasks
+while ($true) {
+  [Int]$count = $taskNodes.value |? {$_.name -eq 'Count'} | Select -Expand data
+  Write-Verbose "Task true count: $count"
+  Write-Verbose "Task nodes count: $($taskNodes.key.Count)"
+  if ($count -ge $taskNodes.key.Count) {
+    break
+  }
+
+  Write-Verbose "Remove Task $($taskNodes.key[-1].name)"
+  $taskNodes.RemoveChild($taskNodes.key[-1]) | Out-Null
+}
+
 $existingTaskNames = $taskNodes.Key.value `
 |? {$_.name -eq 'name'} `
 | Select -Expand data
@@ -76,8 +89,8 @@ function ConvertTo-TaskXml {
     [PsCustomObject]$task
   )
 
-  Write-Host "Convert to TaskXml:"
-  Write-Host "$task"
+  Write-Verbose "Convert to TaskXml:"
+  Write-Verbose "$task"
 
   # TODO Start Debug Session
   #PowerShell -NoExit
@@ -104,6 +117,7 @@ foreach ($env in $environments) {
 
   if ($existingTaskNames -contains $taskName) {
     Write-Verbose "Skip adding task $taskName because it exists"
+    continue
   }
 
   Write-Verbose "Adding task $taskName"
@@ -129,6 +143,8 @@ foreach ($env in $environments) {
   }
 
   $taskDoc = ConvertTo-TaskXml $task
+
+  Write-Host "TaskDoc $taskDoc"
 
   $taskNodes.AppendChild($taskDoc) | Out-Null
 }
