@@ -69,6 +69,16 @@
       "InitScript" : "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat",
       "Configurations" : {
       }
+    },
+    {
+      "Name" : "OhwDev",
+      "Type" : "Regular",
+      "Root" : "C:\\Dev\\Workspace",
+      "SourceControl" : {
+        "Type" : "None"
+      },
+      "InitScript" : "{}",
+      "Configurations" : { }
     }
   ],
   "EnvironmentTypes" : [

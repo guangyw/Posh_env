@@ -97,6 +97,26 @@ function Save-Cache {
   EnvUtil Save $envCachePath
 }
 
+function Init-Env {
+  param (
+    [Parameter(Mandatory=$true)]
+    [string]$EnvironmentName
+  )
+
+  $config = Get-PsEnvironmentConfig $EnvironmentName
+
+  Write-Verbose "Env cache miss"
+  if (Test-Path $config.InitScript) {
+    Write-Verbose "Load-CmdEvn from $($config.InitScript)"
+    Load-CmdEnv $config.InitScript
+  } elseif ($config.InitScript -match "^{.*}$") {
+    Write-Verbose "Init env using script block $($config.InitScript)"
+    # TODO: how to invoke this script block?
+  } else {
+    Write-Error "Cannot init from $config.InitScript"
+  }
+}
+
 function Init-EnvWithCache {
   param (
     [Parameter(Mandatory=$true)]
@@ -108,7 +128,7 @@ function Init-EnvWithCache {
 
   if ($cachePolicy -eq "None") {
 
-    Load-CmdEnv $config.InitScript
+    Init-Env $EnvironmentName
 
   } elseif ($cachePolicy -eq "ByIdFiles") {
 
@@ -119,8 +139,7 @@ function Init-EnvWithCache {
       return
     }
 
-    Write-Verbose "Env cache miss -> init from $($config.InitScript)"
-    Load-CmdEnv $config.InitScript
+    Init-Env $EnvironmentName
 
     Save-Cache $EnvironmentName
 
