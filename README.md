@@ -12,8 +12,17 @@ PowerShell configurations and scripts for both work and play.
   > Switch-Environment OLS-GIT
   > (If it's cheap to init, it should be cheap to switch)
 
+- Auto detect current environment change
+  > git post commit hook so that, if a change to develop requires
+  > re-init of the environment, something will show in the status badge
+
+- Timeout on git fetch status used by posh-git
+
 // Nice to have, maybe too much
 - PsEnvCheck for comprehensive environment setup check
+  > the idea itself is heavily influenced from ohome/ocheck
+  > which themselves are not good ideas
+
 - Environment viewer and diagnostics
 - Environment diff
 

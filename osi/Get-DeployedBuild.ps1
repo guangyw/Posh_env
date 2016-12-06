@@ -6,7 +6,10 @@ param (
 
   [Parameter(Mandatory=$false)]
   [ValidateSet("WorldWide", "Gallatin", "BlackForest")]
-  [string]$AzureCloud = "WorldWide"
+  [string]$AzureCloud = "WorldWide",
+
+  [Parameter(Mandatory=$false)]
+  [switch]$FastMode
 )
 
 if (-not (Get-Module OBD)) {
@@ -27,7 +30,23 @@ if ($AzureCloud -eq "WorldWide") {
   $AzureEnvironment = [Microsoft.Office.Web.Obd.Client.ObdServiceAzureEnvironment]::AzureGermanyCloud
 }
 
-$builds = Get-ObdVersion -ServicePoolId $ServicePoolId -AzureEnvironment $AzureEnvironment
+function Get-OneInstanceName {
+  param ( [string]$AzureCloud )
+  if ($AzureCloud -eq "WorldWide") {
+    "OlsFrontend_IN_0"
+  } else {
+    "OlsFederatedFrontend_IN_0"
+  }
+}
+
+if ($FastMode) {
+  $instanceName = Get-OneInstanceName $AzureCloud
+  Write-Verbose "Get-DeployedBuild in FastMode, query instance $instanceName"
+  $builds = Get-ObdVersion -ServicePoolId $ServicePoolId -AzureEnvironment $AzureEnvironment `
+                           -InstanceName $instanceName
+} else {
+  $builds = Get-ObdVersion -ServicePoolId $ServicePoolId -AzureEnvironment $AzureEnvironment
+}
 
 $uniqueBuilds = $builds | Select -Expand Version -Unique | Sort
 

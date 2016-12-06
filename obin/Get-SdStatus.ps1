@@ -1,5 +1,4 @@
 # Get list opened files grouped by changelists in current enlistments
-# Contact: Odin Wang (hew)
 
 # TODO: implement custom formating
 
