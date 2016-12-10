@@ -25,6 +25,7 @@ if (Get-Module Posh-Git -ListAvailable) {
         $gitRoot = Get-Item (Split-Path -Parent $gitDir)
         $envRoot = Get-Item ($global:_PsEnv_EnvConfig.Root)
 
+        # TODO [bug] FR shouldn't show when the env is not GIT version controlled
         if ($gitRoot.FullName -ne $envRoot.FullName) {
           Write-Host " !FR!" -NoNewline -ForegroundColor Yellow
         }

@@ -39,10 +39,6 @@ if ($EnvironmentName) {
   Write-Error "Expect EnvironmentName or CmdEnvFilePath"
 }
 
-# Checking loading of the env is successful
-if (-not $env:otools) {
-  Write-Error "Failed to load environment from $EnvironmentOrigin" -Category InvalidResult
-}
 # It would still be useful to have basic otools commands in CoreXt environment
 . ".\lib\SdCommon.ps1"
 
@@ -55,8 +51,7 @@ Add-Path .\OLS\
 
 # In case otools as a dependencies is removed from OE CoreXT
 $ExOtools = $env:otools
-
-if (Test-Path $ExOtools) {
+if ($ExOtools -and (Test-Path $ExOtools)) {
   $SdToolsOptions = @{
       SDEDITOR = "$ExOtools\bin\resolver.exe";
       SDFDIFF = "$ExOtools\bin\sdvdiff.exe -LO";
