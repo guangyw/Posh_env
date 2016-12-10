@@ -14,7 +14,8 @@
       },
       "InitScript" : "D:/repos/OLS/tools/path1st/myenv.cmd",
       "Configurations" : {
-        "ConEmu_Palette" : "Tomorrow Night Eighties"
+        "ConEmu_Palette" : "Tomorrow Night Eighties",
+        "SourceHomeDir" : "D:/repos/OLS/private"
       }
     },
     {
@@ -29,6 +30,21 @@
       "InitScript" : "D:/repos/xOLS/tools/path1st/myenv.cmd",
       "Configurations" : {
         "ConEmu_Palette" : "SolaMe"
+      }
+    },
+    {
+      "Name" : "Git-yOLS",
+      "Type" : "Office_CoreXtV5",
+      "Root" : "D:/repos/yOLS",
+      "SourceControl" : {
+        "Type" : "Git",
+        "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OLS",
+        "MasterBranch" : "develop"
+      },
+      "InitScript" : "D:/repos/yOLS/tools/path1st/myenv.cmd",
+      "Configurations" : {
+        "ConEmu_Palette" : "Tomorrow Night",
+        "SourceHomeDir" : "D:/repos/yOLS/private"
       }
     },
     {
@@ -55,6 +71,32 @@
         "MasterBranch" : "master"
       },
       "InitScript" : "D:/repos/OSI/tools/path1st/myenv.cmd",
+      "Configurations" : {
+        "ConEmu_Palette" : "Solarized"
+      }
+    },
+    {
+      "Name" : "SD-OLS",
+      "Type" : "Office_SourceDepot",
+      "Root" : "D:/o/OLS",
+      "SourceControl" : {
+        "Type" : "SourceDepot",
+        "SdIniPath" : "D:\\o\\ols\\sd.ini"
+      },
+      "InitScript" : "D:\\o\\ols\\dev\\otools\\bin\\OpenEnlistment.bat",
+      "Configurations" : {
+        "ConEmu_Palette" : "Solarized"
+      }
+    },
+    {
+      "Name" : "SD-OSI",
+      "Type" : "Office_SourceDepot",
+      "Root" : "D:/o/OSI",
+      "SourceControl" : {
+        "Type" : "SourceDepot",
+        "SdIniPath" : "D:\\o\\osi\\sd.ini"
+      },
+      "InitScript" : "D:\\o\\osi\\dev\\otools\\bin\\OpenEnlistment.bat",
       "Configurations" : {
         "ConEmu_Palette" : "Solarized"
       }

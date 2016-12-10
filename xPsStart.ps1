@@ -142,7 +142,11 @@ function cdi {
 
 # ------------------------------------------
 
-Push-Location $env:SrcRoot;
+if ($config.Configurations.SourceHomeDir) {
+  Push-Location $config.Configurations.SourceHomeDir;
+} else {
+  Push-Location $config.Root
+}
 
 # TODO: Title is currently being overridden by posh-git
 if ($env:EnlistmentName) {

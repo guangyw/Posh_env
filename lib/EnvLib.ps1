@@ -1,5 +1,17 @@
 . $PsScriptRoot\..\config\ManageConfig.ps1
 
+function Test-PsEnv {
+  param (
+    [Parameter(Mandatory=$true)]
+    [string]$EnvironmentName
+  )
+
+  $env = Get-PsEnvironments `
+  |? {$_.Name -eq $EnvironmentName}
+
+  [bool]$env
+}
+
 function Init-PsEnv {
   param (
     [Parameter(Mandatory=$true)]
@@ -23,7 +35,11 @@ function Switch-Environment {
     [string]$EnvironmentName
   )
 
-  . $PsScriptRoot\..\xPsStart.ps1 -EnvironmentName $EnvironmentName
+  if (Test-PsEnv $EnvironmentName) {
+    . $PsScriptRoot\..\xPsStart.ps1 -EnvironmentName $EnvironmentName
+  } else {
+    Write-Warning "Environment ``$EnvironmentName`` is not defined"
+  }
 }
 
 function Add-Path {

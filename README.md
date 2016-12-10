@@ -18,6 +18,9 @@ PowerShell configurations and scripts for both work and play.
 
 - Timeout on git fetch status used by posh-git
 
+// OSI
+- Pull service pools from ED or SvcDef (no hardcoding)
+
 // Nice to have, maybe too much
 - PsEnvCheck for comprehensive environment setup check
   > the idea itself is heavily influenced from ohome/ocheck
