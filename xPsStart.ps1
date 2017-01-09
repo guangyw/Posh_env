@@ -75,22 +75,6 @@ function devosi {
 # Directory shortcuts
 function src { Push-Location $env:SrcRoot }
 
-# Build related
-function qb {
-  if ($args -eq "nocache") {
-    $args = "-CacheType", "None"
-  }
-
-  $startTime = [DateTime]::Now
-  quickbuild $args
-  $endTime = [DateTime]::Now
-  $duration = $endTime - $startTime
-
-  Write-Host "Build starts: $startTime"
-  Write-Host "Build ends: $endTime"
-  Write-Host "Duration: $duration"
-}
-
 # JumpDict should be an env specific setting
 $jumpDict = @{
   src = "$env:SrcRoot";

@@ -114,6 +114,7 @@ function Vim { & "$env:VimRunTime\vim.exe" $args }
 
 function GVim { & "$env:VimRunTime\gvim.exe" $args }
 
+function AzCopy { & "C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\AzCopy.exe" $args }
 
 function Test-Elevated {
   $adminRole = [Security.Principal.WindowsBuiltInRole]"Administrator";
@@ -145,6 +146,11 @@ function CopyPath {
     $absPath = (Get-Item $path).FullName
     echo "Copy $absPath"
     $absPath | clip
+}
+
+function devenv15 {
+  $devenv15Cmd = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe"
+  & $devenv15Cmd $args
 }
 
 Pop-Location

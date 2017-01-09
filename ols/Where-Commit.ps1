@@ -41,6 +41,8 @@ $buildNumbers = @{
 # Write-Output $buildNumbers
 
 git tag --contains $CommitHash `
+|? {-not ($_ -match "Temp")} `
+|? {-not ($_ -match "DRAFT")} `
 | Select -First 3 `
 |% {
   $BuildId, $BuildNumber = $_ -split '_'
