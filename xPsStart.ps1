@@ -67,7 +67,7 @@ if ($ExOtools -and (Test-Path $ExOtools)) {
     Set-Item -Path "env:$($kv.Key)" -Value $kv.Value
   }
 
-  Add-Path $ExOtools\bin\
+  Add-Path $ExOtools\bin\ -End
 }
 
 function devosi {

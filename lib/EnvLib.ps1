@@ -44,8 +44,11 @@ function Switch-Environment {
 
 function Add-Path {
   param(
-    [Parameter(mandatory=$true)]
-    [string]$path
+    [Parameter(Mandatory=$true)]
+    [string]$path,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$End
   )
   if (-not (Test-Path $path -PathType Container)) {
     Write-Error "Path does not exist $path"
@@ -55,5 +58,9 @@ function Add-Path {
   $fullPath = (Get-Item $path).FullName
 
   Write-Verbose "Add $fullPath to local path"
-  $env:Path = "$env:Path;$fullPath"
+  if ($End) {
+    $env:Path = "$env:Path;$fullPath"
+  } else {
+    $env:Path = "$fullPath;$env:Path"
+  }
 }
