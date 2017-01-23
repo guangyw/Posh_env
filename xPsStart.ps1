@@ -33,6 +33,8 @@ Init-PsEnv $EnvironmentName
 
 $config = Get-PsEnvironmentConfig $EnvironmentName
 
+Load-GlobalConfiguration
+
 if ($EnvironmentName) {
   Init-EnvWithCache $EnvironmentName
 } else {

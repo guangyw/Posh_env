@@ -29,7 +29,8 @@
       },
       "InitScript" : "D:/repos/xOLS/tools/path1st/myenv.cmd",
       "Configurations" : {
-        "ConEmu_Palette" : "SolaMe"
+        "ConEmu_Palette" : "SolaMe",
+        "SourceHomeDir" : "D:/repos/xOLS/private"
       }
     },
     {
@@ -45,6 +46,21 @@
       "Configurations" : {
         "ConEmu_Palette" : "Tomorrow Night",
         "SourceHomeDir" : "D:/repos/yOLS/private"
+      }
+    },
+    {
+      "Name" : "Git-iOLS",
+      "Type" : "Office_CoreXtV5",
+      "Root" : "C:/repos/iOLS",
+      "SourceControl" : {
+        "Type" : "Git",
+        "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OLS",
+        "MasterBranch" : "develop"
+      },
+      "InitScript" : "C:/repos/iOLS/tools/path1st/myenv.cmd",
+      "Configurations" : {
+        "ConEmu_Palette" : "Tomorrow Night",
+        "SourceHomeDir" : "C:/repos/iOLS/private"
       }
     },
     {
@@ -157,7 +173,8 @@
       "$PsEnvRoot/OLS/"
     ],
     "EnvironmentVariableOverrides" : {
-      "Corext_CleanCacheOnInitAge": 0
+      "Corext_CleanCacheOnInitAge" : 0,
+      "NugetMachineInstallRoot" : "C:\\NuGetCache"
     }
   }
 }
