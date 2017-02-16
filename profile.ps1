@@ -19,36 +19,9 @@ Add-Path .\OSI
 
 $Repos = "d:\dev\repos"
 
-$FsHome = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0"
-$FsBinPath = "C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0"
-$CygwinBinPath = "D:\cygwin64\bin\"
-
-Add-Path $FsBinPath
-
-$AtomPath = "C:\Users\hew\AppData\Local\atom\bin"
-if (Test-Path $AtomPath) {
-    Add-Path $AtomPath
-}
-
-if (Test-Path "D:\Apps\Emacs\bin") {
-  Add-Path D:\apps\emacs\bin
-}
-
-if (Test-Path "D:\Apps\Racket") {
-  Add-Path D:\Apps\Racket
-}
-
 $env:PathExt += ";.Py"
-$env:PathExt += ";.Fsx"
-$env:PathExt += ";.FsScript"
 
 $env:Home = (Get-Item "~").FullName
-
-$FsiPath = "$FsBinPath\Fsi.exe"
-$FscPath = "$FsBinPath\Fsc.exe"
-
-$MiniCygBin = "D:\Dev\Cygbin"
-Set-Alias rlwrap "$MiniCygBin\rlwrap.exe"
 
 function fsi {rlwrap fsi $args}
 
@@ -106,32 +79,11 @@ function Get-LastDownload
   return (Get-Item $lastDownloadedFile.Name)
 }
 
-if (-not $env:VimRuntime) {
-  $env:VimRuntime = "D:\Dev\tools\vim80"
-}
-
-function Vim { & "$env:VimRunTime\vim.exe" $args }
-
-function GVim { & "$env:VimRunTime\gvim.exe" $args }
-
 function AzCopy { & "C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\AzCopy.exe" $args }
 
 function Test-Elevated {
   $adminRole = [Security.Principal.WindowsBuiltInRole]"Administrator";
   return ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole($adminRole)
-}
-
-function Get-HumanReadableSize {
-  $bytecount = $args[0]
-
-  switch -Regex ([math]::truncate([math]::log($bytecount,1024))) {
-    '^0' {"$bytecount Bytes"}
-    '^1' {"{0:n2} KB" -f ($bytecount / 1kb)}
-    '^2' {"{0:n2} MB" -f ($bytecount / 1mb)}
-    '^3' {"{0:n2} GB" -f ($bytecount / 1gb)}
-    '^4' {"{0:n2} TB" -f ($bytecount / 1tb)}
-    Default {"{0:n2} PB" -f ($bytecount / 1pb)}
-  }
 }
 
 function CopyPwd {

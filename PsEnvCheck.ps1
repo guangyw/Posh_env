@@ -14,9 +14,6 @@ function Check-Executable($exe, $cmd) {
   }
 }
 
-Check-Executable "java" "java -version"
-Check-Executable "scala" "scala -version"
-Check-Executable "fsi"
 Check-Executable "python" "python --version"
 # node, npm
 

@@ -1,66 +1,36 @@
 {
-  "UserName" : "Odin Heng Wang",
-  "Email" : "hew@microsoft.com",
+  "UserName" : "Guangyan Wang",
+  "Email" : "guwan@microsoft.com",
   "DefaultEnvironment" : "Git-OLS",
   "Environments" : [
     {
       "Name" : "Git-OLS",
       "Type" : "Office_CoreXtV5",
-      "Root" : "D:/repos/OLS",
+      "Root" : "C:/Users/guwan/workspace/ols",
       "SourceControl" : {
         "Type" : "Git",
         "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OLS",
         "MasterBranch" : "develop"
       },
-      "InitScript" : "D:/repos/OLS/tools/path1st/myenv.cmd",
+      "InitScript" :"C:/Users/guwan/workspace/ols/tools/path1st/myenv.cmd",
       "Configurations" : {
         "ConEmu_Palette" : "Tomorrow Night Eighties",
-        "SourceHomeDir" : "D:/repos/OLS/private"
+        "SourceHomeDir" : "C:/Users/guwan/workspace/ols/private"
       }
     },
     {
-      "Name" : "Git-xOLS",
+      "Name" : "Git-OLS2",
       "Type" : "Office_CoreXtV5",
-      "Root" : "D:/repos/xOLS",
+      "Root" : "C:/Users/guwan/workspace/ols2",
       "SourceControl" : {
         "Type" : "Git",
         "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OLS",
         "MasterBranch" : "develop"
       },
-      "InitScript" : "D:/repos/xOLS/tools/path1st/myenv.cmd",
+      "InitScript" :"C:/Users/guwan/workspace/ols2/tools/path1st/myenv.cmd",
       "Configurations" : {
         "ConEmu_Palette" : "SolaMe",
-        "SourceHomeDir" : "D:/repos/xOLS/private"
-      }
-    },
-    {
-      "Name" : "Git-yOLS",
-      "Type" : "Office_CoreXtV5",
-      "Root" : "D:/repos/yOLS",
-      "SourceControl" : {
-        "Type" : "Git",
-        "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OLS",
-        "MasterBranch" : "develop"
-      },
-      "InitScript" : "D:/repos/yOLS/tools/path1st/myenv.cmd",
-      "Configurations" : {
-        "ConEmu_Palette" : "Tomorrow Night",
-        "SourceHomeDir" : "D:/repos/yOLS/private"
-      }
-    },
-    {
-      "Name" : "Git-iOLS",
-      "Type" : "Office_CoreXtV5",
-      "Root" : "C:/repos/iOLS",
-      "SourceControl" : {
-        "Type" : "Git",
-        "Remote" : "ssh://office@office.visualstudio.com:22/CLE/_git/OLS",
-        "MasterBranch" : "develop"
-      },
-      "InitScript" : "C:/repos/iOLS/tools/path1st/myenv.cmd",
-      "Configurations" : {
-        "ConEmu_Palette" : "Tomorrow Night",
-        "SourceHomeDir" : "C:/repos/iOLS/private"
+        "SourceHomeDir" : "C:/Users/guwan/workspace/ols2/private"
       }
     },
     {
@@ -103,40 +73,6 @@
       "Configurations" : {
         "ConEmu_Palette" : "Solarized"
       }
-    },
-    {
-      "Name" : "SD-OSI",
-      "Type" : "Office_SourceDepot",
-      "Root" : "D:/o/OSI",
-      "SourceControl" : {
-        "Type" : "SourceDepot",
-        "SdIniPath" : "D:\\o\\osi\\sd.ini"
-      },
-      "InitScript" : "D:\\o\\osi\\dev\\otools\\bin\\OpenEnlistment.bat",
-      "Configurations" : {
-        "ConEmu_Palette" : "Solarized"
-      }
-    },
-    {
-      "Name" : "VS14_DevCmd",
-      "Type" : "Regular",
-      "Root" : "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0",
-      "SourceControl" : {
-        "Type" : "None"
-      },
-      "InitScript" : "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat",
-      "Configurations" : {
-      }
-    },
-    {
-      "Name" : "OhwDev",
-      "Type" : "Regular",
-      "Root" : "C:\\Dev\\Workspace",
-      "SourceControl" : {
-        "Type" : "None"
-      },
-      "InitScript" : "{}",
-      "Configurations" : { }
     }
   ],
   "EnvironmentTypes" : [
@@ -163,8 +99,8 @@
     }
   ],
   "Configurations" : {
-    "Editor" : "D:/Dev/tools/vim80/gvim.exe",
-    "Workspace" : "D:/Dev/Workspace",
+    "Editor" : "C:/Program Files (x86)/Vim/vim80/gvim.exe",
+    "Workspace" : "C:/Users/guwan/workspace",
     "AutoSwitch" : false,
     "ConEmu_Palette" : "Tomorrow Night",
     "Path" : [

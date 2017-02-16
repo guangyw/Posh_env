@@ -130,11 +130,11 @@ if ($config.Configurations.SourceHomeDir) {
 }
 
 # TODO: Title is currently being overridden by posh-git
-if ($env:EnlistmentName) {
-  Set-Title "$env:EnlistmentName"
-} elseif ($env:ConEmuTask) {
-  $env:EnlistmentName = $env:ConEmuTask.Trim('{}')
-}
+#if ($env:EnlistmentName) {
+#  Set-Title "$env:EnlistmentName"
+#} elseif ($env:ConEmuTask) {
+#  $env:EnlistmentName = $env:ConEmuTask.Trim('{}')
+#}
 
 Write-Logo
 Write-Host ""
