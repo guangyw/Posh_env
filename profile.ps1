@@ -28,6 +28,11 @@ function fsi {rlwrap fsi $args}
 Set-Alias l ls
 Set-Alias posh powershell
 
+# git alias
+function gs {git status}
+function gd {git diff}
+function ga {git add}
+
 # Show all files
 function lla {ls -Force}
 
